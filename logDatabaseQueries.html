@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ankitha Gowda</title>
+    <style>
+
+  pre code.bigblock {
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block; /* Makes the code block take up full width */
+        padding: 20px;
+    }
+
+    code.smallblock {
+        background-color: #f0f0f0;
+        /* border: 1px solid #999; */
+         /* Makes the code block take up full width */
+        /* padding: 20px; */
+    }
+
+    img {
+    display: block;      /* 1. Make the image a block element */
+    margin-left: auto;   /* 2. Set left margin to auto */
+    margin-right: auto;  /* 3. Set right margin to auto */
+    /* Optional: set a width so margins have space to work */
+    width: 70%;
+    }
+
+    body{
+    width: 70%;
+    }
+
+    figcaption {
+    font-style: italic;
+    color: #555;
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    }
+
+    
+    </style>
+</head>
+<body>
+    <figure>
+    <img src="IntroImage_1.png">
+    <figcaption>
+        Photo by <a href="https://unsplash.com/@davealmine?utm_source=medium&utm_medium=referral">Dawid Zawiła</a> on 
+        <a href="https://unsplash.com/?utm_source=medium&utm_medium=referral">Unsplash</a>
+    </figcaption>
+    </figure>
+
+    <br><br>
+    <p>
+Hey there, In this article we will look at various ways of logging database queries in
+Spring/JDBC.<br><br>
+
+Most of the time, the database queries used will include dynamic values which are
+known at run-time. If we want to know the value used by a query, we can log
+messages in each function making database calls. But, obviously it is time-consuming task.
+<br><br>
+
+Here, you will wish for a configuration that will take care of all this logging. Let’s
+look at some ways to achieve this: <br><br>
+</p>
+
+<ol>
+<li> <b>Updating the default show_sql flag to true </b></li>
+Firstly, if you are using JPA with Spring, you can get logs by adding below to your
+<code class="smallblock">application.properties</code> or <code class="smallblock">application.yml file</code> :
+
+<br><br><pre><code class="bigblock"> spring.jpa.properties.hibernate.show_sql=true</code></pre><br><br>
+
+You will get the SQL logs in the console as below. 
+
+
+Here you will get the queries
+hitting to database, but the values passed from application is not available.
+
+<br><br><pre><code class="bigblock">Hibernate: insert into employee (name, salary, id) values (?, ?, ?)</code></pre>
+
+
+<br><br>
+
+<li> <b>Updating the logging level</b></li>
+If you are using JdbcTemplate of Springboot, you can change the logging level of
+JdbcTemplate to TRACE in <code class="smallblock">application.properties</code> or <code class="smallblock">application.yml file</code> :
+<br><br>
+
+<code class="smallblock">logging.level.org.springframework.jdbc.core=TRACE</code>
+<br><br>
+Sample output will be as below:
+
+
+<pre>
+    <code class="bigblock">
+        Executing prepared SQL statement [insert into employee (name,
+        salary, id) values (?, ?, ?)]
+        Setting SQL statement parameter value: column index 1, parameter value [Text], value class [java.lang.String], SQL type unknown
+        Setting SQL statement parameter value: column index 2, parameter
+        value [400], value class [java.lang.Integer], SQL type unknown
+        Setting SQL statement parameter value: column index 3, parameter
+        value [4], value class [java.lang.Integer], SQL type unknown
+        SQL update affected 1 rows
+    </code>
+</pre>
+
+<br><br>
+
+<li><b>Creating a proxy datasource</b></li>
+As a last resort, we can go with proxy datasource through which we can have more
+control on the undergoing DB operations in an application. This also logs stored
+procedure calls.
+In Spring, by default datasource object will be autoconfigured on application
+startup, detecting the parameters in application.properties or application.yml file.
+We can use datasource-proxy dependency for intercepting all JDBC interactions. The
+datasource-proxy is an API provided to include any interaction before or after a query
+is executed. This proxy supports pre-defined listeners that include query logging,
+slow query detection, query execution statistics, interaction tracing, etc. Also,
+custom listeners can easily be added to the listener chain.
+To make use of this functionality below dependency is required:
+<br>
+<pre>
+    <code class="bigblock">
+    &lt;dependency&gt;
+    &lt;groupId&gt;net.ttddyy&lt;/groupId&gt;
+    &lt;artifactId&gt;datasource-proxy&lt;/artifactId&gt;
+    &lt;version&gt;LATEST_VERSION&lt;/version&gt;
+    &lt;/dependency&gt;
+    </code>
+</pre>
+Create a original datasource bean using dataSourceProperties and initialize the
+proxy with required extra functionality.
+
+<pre>
+    <code class="bigblock">
+        @Bean
+        public DataSource getDataSource(DataSourceProperties
+        dataSourceProperties) {
+        DataSource originalDatasource =
+        dataSourceProperties.initializeDataSourceBuilder()
+        .build();
+        DataSource proxyDataSource =
+        ProxyDataSourceBuilder.create(originalDatasource)
+        .name("Proxy DataSource")
+        .logQueryByCommons(INFO)
+        .build();
+        return proxyDataSource;
+        }
+</code>
+</pre>
+
+Sample output:
+<ol>
+    <li>insertion query</li>
+    <pre>
+        <code class="bigblock">
+        Name:Proxy DataSource, Connection:8, Time:2, Success:True,
+        Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query:["insert
+        into employee (name, salary, id) values (?, ?, ?)"], Params:
+        [(Text,400,4)]
+        </code>
+</pre>
+
+<li>stored procedure calls</li>
+
+    <pre>
+        <code class="bigblock">
+        Name:Proxy DataSource, Connection:1, Time:82, Success:True,
+        Type:Callable, Batch:False, QuerySize:1, BatchSize:0, Query:["{call
+        TestProc(?)}"], Params:[(username=Raju)]
+    </code>
+</pre>
+
+</ol>
+For more options, you can look for official documentation of proxy datasource <a href="git repo link">here.</a>
+<br><br>
+
+Thank you for reading. Happy exploring!!!
+
+</ol>
+</body>
+</html>
