@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Ways to log database queries in Spring/JDBC</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Ways to log database queries in Spring/JDBC</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Hey there, In this article we will look at various ways of logging database queries in Spring/JDBC.
+</section>
+<section data-field="body" class="e-content">
+<section name="8c5b" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="228f" id="228f" class="graf graf--h3 graf--leading graf--title">Ways to log database queries in Spring/JDBC</h3><figure name="df9f" id="df9f" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="0*spFrC_fomSKn-APQ" data-width="4159" data-height="2773" data-unsplash-photo-id="-G3rw6Y02D0" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/0*spFrC_fomSKn-APQ"><figcaption class="imageCaption">Photo by <a href="https://unsplash.com/@davealmine?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com/@davealmine?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-creator noopener" target="_blank">Dawid Zawiła</a> on <a href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-source noopener" target="_blank">Unsplash</a></figcaption></figure><p name="959c" id="959c" class="graf graf--p graf-after--figure">Hey there, In this article we will look at various ways of logging database queries in Spring/JDBC.</p><p name="1b69" id="1b69" class="graf graf--p graf-after--p graf--trailing">Most of the time, the database queries used will include dynamic values which are known at run-time. If we want to know the value used by a query, we can log messages in each function making database calls. But, obviously it is time-consuming and not ideal because of code duplication.</p></div></div></section><section name="72a9" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="9eae" id="9eae" class="graf graf--p graf--leading">Here, you will wish for a configuration that will take care of all this logging. Let’s look at some ways to achieve this:</p><ol class="postList"><li name="8b39" id="8b39" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Updating the default show_sql flag to true</strong></li></ol><p name="591c" id="591c" class="graf graf--p graf-after--li">Firstly, if you are using JPA with Spring, you can get logs by adding below to your <code class="markup--code markup--p-code">application.properties</code> or <code class="markup--code markup--p-code">application.yml</code> file:</p><pre name="9a63" id="9a63" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">spring.jpa.properties.hibernate.show_sql=true</code></pre><p name="7e21" id="7e21" class="graf graf--p graf-after--pre">You will get the SQL logs in the console as below. Here you will get the queries hitting to database, but the values passed from application is not available.</p><pre name="4e70" id="4e70" class="graf graf--pre graf-after--p">Hibernate: insert into employee (name, salary, id) values (?, ?, ?)</pre><p name="9b01" id="9b01" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">2. Updating the logging level</strong></p><p name="aa40" id="aa40" class="graf graf--p graf-after--p">If you are using JdbcTemplate of Springboot, you can change the logging level of JdbcTemplate to TRACE in <code class="markup--code markup--p-code">application.properties</code> or<code class="markup--code markup--p-code"> application.yml</code> file:</p><pre name="6534" id="6534" class="graf graf--pre graf-after--p"><code class="markup--code markup--pre-code">logging.level.org.springframework.jdbc.core=TRACE</code></pre><p name="fccb" id="fccb" class="graf graf--p graf-after--pre">Sample output will be as below:</p><pre name="2eeb" id="2eeb" class="graf graf--pre graf-after--p">Executing prepared SQL statement [insert into employee (name, salary, id) values (?, ?, ?)]<br>Setting SQL statement parameter value: column index 1, parameter value [Text], value class [java.lang.String], SQL type unknown<br>Setting SQL statement parameter value: column index 2, parameter value [400], value class [java.lang.Integer], SQL type unknown<br>Setting SQL statement parameter value: column index 3, parameter value [4], value class [java.lang.Integer], SQL type unknown<br>SQL update affected 1 rows</pre><p name="c484" id="c484" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">3. Creating a proxy datasource</strong></p><p name="68c0" id="68c0" class="graf graf--p graf-after--p">As a last resort, we can go with proxy datasource through which we can have more control on the undergoing DB operations in an application. This also logs stored procedure calls.</p><p name="3399" id="3399" class="graf graf--p graf-after--p">In Spring, by default datasource object will be autoconfigured on application startup, detecting the parameters in <code class="markup--code markup--p-code">application.properties</code> or <code class="markup--code markup--p-code">application.yml</code> file.</p><p name="125d" id="125d" class="graf graf--p graf-after--p">We can use <code class="markup--code markup--p-code">datasource-proxy</code> dependency for intercepting all JDBC interactions. The <em class="markup--em markup--p-em">datasource-proxy</em> is an API provided to include any interaction before or after a query is executed. This proxy supports pre-defined listeners that include query logging, slow query detection, query execution statistics, interaction tracing, etc. Also, custom listeners can easily be added to the listener chain.</p><p name="f1ef" id="f1ef" class="graf graf--p graf-after--p">To make use of this functionality below dependency is required:</p><pre name="b06c" id="b06c" class="graf graf--pre graf-after--p">&lt;dependency&gt;<br>&lt;groupId&gt;net.ttddyy&lt;/groupId&gt;<br>&lt;artifactId&gt;datasource-proxy&lt;/artifactId&gt;<br>&lt;version&gt;LATEST_VERSION&lt;/version&gt;<br>&lt;/dependency&gt;</pre><p name="c3eb" id="c3eb" class="graf graf--p graf-after--pre">Create a original datasource bean using dataSourceProperties and initialize the proxy with required extra functionality.</p><pre name="6a1a" id="6a1a" class="graf graf--pre graf-after--p">@Bean<br>public DataSource getDataSource(DataSourceProperties dataSourceProperties) {<br>   DataSource originalDatasource = dataSourceProperties.initializeDataSourceBuilder()<br>         .build();<br>   DataSource proxyDataSource = ProxyDataSourceBuilder.<em class="markup--em markup--pre-em">create</em>(originalDatasource)<br>         .name(&quot;Proxy DataSource&quot;)<br>         .logQueryByCommons(<em class="markup--em markup--pre-em">INFO</em>)<br>         .build();<br>   return proxyDataSource;<br>}</pre><p name="bc7b" id="bc7b" class="graf graf--p graf-after--pre">Sample output:</p><p name="5e35" id="5e35" class="graf graf--p graf-after--p">a) insertion query</p><pre name="1c92" id="1c92" class="graf graf--pre graf-after--p">Name:Proxy DataSource, Connection:8, Time:2, Success:True, Type:Prepared, Batch:False, QuerySize:1, BatchSize:0, Query:[&quot;insert into employee (name, salary, id) values (?, ?, ?)&quot;], Params:[(Text,400,4)]</pre><p name="70d0" id="70d0" class="graf graf--p graf-after--pre">b) stored procedure calls</p><pre name="42c2" id="42c2" class="graf graf--pre graf-after--p">Name:Proxy DataSource, Connection:1, Time:82, Success:True, Type:Callable, Batch:False, QuerySize:1, BatchSize:0, Query:[&quot;{call TestProc(?)}&quot;], Params:[(username=Raju)]</pre><p name="473c" id="473c" class="graf graf--p graf-after--pre">For more options, you can look for official documentation of proxy datasource <a href="http://ttddyy.github.io/datasource-proxy/docs/current/user-guide/#creating-proxydatasource" data-href="http://ttddyy.github.io/datasource-proxy/docs/current/user-guide/#creating-proxydatasource" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">here</a>.</p><p name="30c1" id="30c1" class="graf graf--p graf-after--p graf--trailing">Thank you for reading. Happy exploring!!!</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@ankithahjpgowda" class="p-author h-card">Ankitha Gowda</a> on <a href="https://medium.com/p/d8a800910807"><time class="dt-published" datetime="2021-08-22T10:42:32.306Z">August 22, 2021</time></a>.</p><p><a href="https://medium.com/@ankithahjpgowda/ways-to-log-database-queries-in-spring-jdbc-d8a800910807" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>

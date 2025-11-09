@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Singleton Design Pattern in Java</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Singleton Design Pattern in Java</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Software design patterns are reusable solutions that are not exactly the final product. These are the templates for software design. They…
+</section>
+<section data-field="body" class="e-content">
+<section name="687d" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="6e5d" id="6e5d" class="graf graf--h3 graf--leading graf--title">Singleton Design Pattern in Java</h3><figure name="4b40" id="4b40" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="0*-5_jlWFyU_1O0a-I" data-width="3905" data-height="2929" data-unsplash-photo-id="7JX0-bfiuxQ" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/0*-5_jlWFyU_1O0a-I"><figcaption class="imageCaption">Photo by <a href="https://unsplash.com/@jjying?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com/@jjying?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-creator noopener" target="_blank">JJ Ying</a> on <a href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-source noopener" target="_blank">Unsplash</a></figcaption></figure><p name="71ca" id="71ca" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">S</span>oftware design patterns are reusable solutions that are not exactly the final product. These are the templates for software design. They are not a code that can be directly converted into the software. There are many design patterns present.</p><p name="afc2" id="afc2" class="graf graf--p graf-after--p">Design patterns can be broadly classified into 3 types:</p><ul class="postList"><li name="19b4" id="19b4" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Creational: </strong>designed for class instantiation. They can be either class-creation patterns or object-creational patterns.</li><li name="8f90" id="8f90" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Structural: </strong>designed with regard to a class’s structure and composition.</li><li name="7f5f" id="7f5f" class="graf graf--li graf-after--li graf--trailing"><strong class="markup--strong markup--li-strong">Behavioral: </strong>designed depending on how one class communicates with others.</li></ul></div></div></section><section name="7e08" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="9969" id="9969" class="graf graf--p graf--leading">Today, I will explain about <strong class="markup--strong markup--p-strong">Singleton</strong> <strong class="markup--strong markup--p-strong">design pattern</strong> which is a creational design pattern. Singleton means only one instance of the class can exist anytime.</p><p name="2461" id="2461" class="graf graf--p graf-after--p">To make a class Singleton:</p><ol class="postList"><li name="68b0" id="68b0" class="graf graf--li graf-after--p">make all constructors private</li><li name="2cb4" id="2cb4" class="graf graf--li graf-after--li">Have a static method that will return the object. Object creation can be lazy or eager instantiation.</li></ol><p name="ebfd" id="ebfd" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Two forms of singleton design pattern</strong></p><ul class="postList"><li name="ae14" id="ae14" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Early Instantiation:</strong> Creation of instance at load time.</li><li name="7ac8" id="7ac8" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Lazy Instantiation:</strong> Creation of instance when required. (better approach)</li></ul><p name="6fa1" id="6fa1" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Lazy Instantiation:</strong></p><pre name="bd57" id="bd57" class="graf graf--pre graf-after--p">public static SingletonPatternExample {</pre><pre name="d7b1" id="d7b1" class="graf graf--pre graf-after--pre">private static SingletonPatternExample singletonPatternObj = null;</pre><pre name="9e2b" id="9e2b" class="graf graf--pre graf-after--pre">private SingletonPatternExample() {<br>}</pre><pre name="9ede" id="9ede" class="graf graf--pre graf-after--pre">public static SingletonPatternExample getInstance() {<br>    if(singletonPatternObj == null) {<br>       singletonPatternObj = new SingletonPatternExample(); // lazy instantiation<br>    }<br>return singletonPatternObj;<br>}</pre><pre name="580f" id="580f" class="graf graf--pre graf-after--pre">}</pre><p name="9183" id="9183" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Early Instantiation:</strong></p><pre name="0517" id="0517" class="graf graf--pre graf-after--p">public static SingletonPatternExample {</pre><pre name="475a" id="475a" class="graf graf--pre graf-after--pre">private static SingletonPatternExample singletonPatternObj = new SingletonPatternExample(); // early instantiation</pre><pre name="3132" id="3132" class="graf graf--pre graf-after--pre">private SingletonPatternExample() {<br>}</pre><pre name="80ab" id="80ab" class="graf graf--pre graf-after--pre">public static SingletonPatternExample getInstance() {<br>    return singletonPatternObj;<br>}</pre><pre name="c2ad" id="c2ad" class="graf graf--pre graf-after--pre">}</pre><p name="c3f4" id="c3f4" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">Advantages:</strong></p><ul class="postList"><li name="7cf1" id="7cf1" class="graf graf--li graf-after--p">Useful when only a single instance of the class should exist. e.g.: DB connection, sessionFactory in Hibernate, etc.</li><li name="89a7" id="89a7" class="graf graf--li graf-after--li">Saves memory as only one object will exist every time</li></ul><p name="3b1d" id="3b1d" class="graf graf--p graf-after--li"><strong class="markup--strong markup--p-strong">Uses:</strong></p><p name="a0f5" id="a0f5" class="graf graf--p graf-after--p graf--trailing">Thread pools, Configuration settings, logging</p></div></div></section><section name="e5fd" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="41cc" id="41cc" class="graf graf--p graf--leading"><strong class="markup--strong markup--p-strong">Serialization in singleton pattern</strong></p><p name="4d4d" id="4d4d" class="graf graf--p graf-after--p">If the singleton class is Serializable, you can serialize the singleton instance. Once it is serialized, you can deserialize it but it will not return the singleton object.</p><p name="9c62" id="9c62" class="graf graf--p graf-after--p">To resolve this issue, you need to override the <strong class="markup--strong markup--p-strong">readResolve() </strong>method that enforces the singleton. It is called just after the object is deserialized. It returns the singleton object.</p><p name="33bb" id="33bb" class="graf graf--p graf-after--p graf--trailing">Thank you for reading. Happy exploring!!!</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@ankithahjpgowda" class="p-author h-card">Ankitha Gowda</a> on <a href="https://medium.com/p/cb197f1ede44"><time class="dt-published" datetime="2022-06-21T13:41:43.046Z">June 21, 2022</time></a>.</p><p><a href="https://medium.com/@ankithahjpgowda/singleton-design-pattern-in-java-cb197f1ede44" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>

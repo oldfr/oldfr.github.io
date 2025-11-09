@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>delayedExecutor in CompletableFuture JAVA</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">delayedExecutor in CompletableFuture JAVA</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Working one
+</section>
+<section data-field="body" class="e-content">
+<section name="f12d" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="01fc" id="01fc" class="graf graf--h3 graf--leading graf--title">delayedExecutor in CompletableFuture JAVA</h3><p name="3112" id="3112" class="graf graf--p graf--empty graf-after--h3"><br></p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="java" name="964b" id="964b" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">import</span> java.util.concurrent.*;<br /><span class="hljs-keyword">import</span> java.time.*;<br /><span class="hljs-keyword">import</span> java.util.*;<br /><br /><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span><br />{<br /><br /> <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {<br /><br />  Stack&lt;String&gt; stack = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stack</span>&lt;&gt;();<br />  stack.push(<span class="hljs-string">&quot;one&quot;</span>);<br />  stack.push(<span class="hljs-string">&quot;two&quot;</span>);<br />  stack.push(<span class="hljs-string">&quot;three&quot;</span>);<br /><br /><br />  <span class="hljs-type">ScheduledExecutorService</span> <span class="hljs-variable">scheduledExecutorService</span> <span class="hljs-operator">=</span> Executors.newScheduledThreadPool(<span class="hljs-number">5</span>);<br /><br />  <span class="hljs-type">Runnable</span> <span class="hljs-variable">command</span> <span class="hljs-operator">=</span> () -&gt; {<br />   <span class="hljs-type">String</span> <span class="hljs-variable">ele</span> <span class="hljs-operator">=</span> stack.pop();<br />   System.out.println(<span class="hljs-string">&quot;Yo from thread:&quot;</span>+Thread.currentThread().getName()<br />     +<span class="hljs-string">&quot; at time:&quot;</span>+ LocalDateTime.now()+<span class="hljs-string">&quot; got element:&quot;</span>+ele);<br />   <span class="hljs-keyword">if</span>(stack.empty()) {<br />    System.out.println(<span class="hljs-string">&quot;done, shutdown&quot;</span>);<br />    scheduledExecutorService.shutdown();<br />   }<br />  };<br /><br />  <span class="hljs-type">Runnable</span> <span class="hljs-variable">commandRunner</span> <span class="hljs-operator">=</span> () -&gt; {<br />   scheduledExecutorService.schedule(command, <span class="hljs-number">0</span>, TimeUnit.SECONDS);<br />  };<br /><br />  scheduledExecutorService.scheduleAtFixedRate(commandRunner, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, TimeUnit.SECONDS);<br /> }<br />}</span></pre><p name="65eb" id="65eb" class="graf graf--p graf--empty graf-after--pre"><br></p><p name="f82e" id="f82e" class="graf graf--p graf-after--p">Working one</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="java" name="e43a" id="e43a" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">import</span> java.util.concurrent.Executors;<br /><span class="hljs-keyword">import</span> java.util.concurrent.ScheduledExecutorService;<br /><span class="hljs-keyword">import</span> java.util.concurrent.TimeUnit;<br /><br /><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {<br /><br />    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {<br />        <span class="hljs-comment">// Create a ScheduledExecutorService with a single thread</span><br />        <span class="hljs-type">ScheduledExecutorService</span> <span class="hljs-variable">scheduler</span> <span class="hljs-operator">=</span> Executors.newScheduledThreadPool(<span class="hljs-number">1</span>);<br /><br />        <span class="hljs-comment">// Define the task to be executed</span><br />        <span class="hljs-type">Runnable</span> <span class="hljs-variable">task</span> <span class="hljs-operator">=</span> () -&gt; {<br />            System.out.println(<span class="hljs-string">&quot;Task executed at: &quot;</span> + System.currentTimeMillis());<br />            <span class="hljs-comment">// Add your task logic here</span><br />        };<br /><br />        <span class="hljs-comment">// Schedule the task to run every second after an initial delay of 0 seconds</span><br />        scheduler.scheduleAtFixedRate(task, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, TimeUnit.SECONDS);<br /><br />        <span class="hljs-comment">// To stop the scheduler after a certain time (optional)</span><br />        <span class="hljs-comment">// scheduler.schedule(() -&gt; scheduler.shutdown(), 10, TimeUnit.SECONDS);</span><br />    }<br />}</span></pre><p name="c077" id="c077" class="graf graf--p graf-after--pre">approach 3 =&gt;</p><p name="d47b" id="d47b" class="graf graf--p graf--empty graf-after--p"><br></p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="java" name="6f0d" id="6f0d" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content"><span class="hljs-keyword">import</span> java.util.Queue;<br /><span class="hljs-keyword">import</span> java.util.concurrent.*;<br /><span class="hljs-keyword">import</span> java.time.*;<br /><span class="hljs-keyword">import</span> java.util.concurrent.atomic.AtomicInteger;<br /><br /><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {<br />    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {<br />        <span class="hljs-comment">// Thread-safe task queue</span><br />        Queue&lt;Runnable&gt; taskQueue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConcurrentLinkedQueue</span>&lt;&gt;();<br /><br />        <span class="hljs-comment">// Fill task queue with sample tasks</span><br />        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span>; i++) {<br />            <span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">taskId</span> <span class="hljs-operator">=</span> i;<br />            taskQueue.add(() -&gt; {<br />                System.out.println(<span class="hljs-string">&quot;Running task &quot;</span> + taskId + <span class="hljs-string">&quot; on thread &quot;</span> + Thread.currentThread().getName()+<span class="hljs-string">&quot; at time: &quot;</span>+LocalDateTime.now());<br />            });<br />        }<br /><br />        <span class="hljs-comment">// Executor to run the actual tasks</span><br />        <span class="hljs-type">ExecutorService</span> <span class="hljs-variable">taskExecutor</span> <span class="hljs-operator">=</span> Executors.newFixedThreadPool(<span class="hljs-number">2</span>);<br /><br />        <span class="hljs-comment">// Scheduled executor to pick one task every second</span><br />        <span class="hljs-type">ScheduledExecutorService</span> <span class="hljs-variable">scheduler</span> <span class="hljs-operator">=</span> Executors.newSingleThreadScheduledExecutor();<br /><br />        scheduler.scheduleAtFixedRate(() -&gt; {<br />            <span class="hljs-type">Runnable</span> <span class="hljs-variable">task</span> <span class="hljs-operator">=</span> taskQueue.poll(); <span class="hljs-comment">// Fetch next task</span><br />            <span class="hljs-keyword">if</span> (task != <span class="hljs-literal">null</span>) {<br />                taskExecutor.submit(task); <span class="hljs-comment">// Submit to executor</span><br />            } <span class="hljs-keyword">else</span> {<br />                System.out.println(<span class="hljs-string">&quot;No tasks left to schedule.&quot;</span>);<br />                scheduler.shutdown();  <span class="hljs-comment">// Optional: Stop scheduler if queue is empty</span><br />                taskExecutor.shutdown();  <span class="hljs-comment">// Optional: Shutdown task executor</span><br />            }<br />        }, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, TimeUnit.SECONDS);<br />    }<br />}</span></pre><p name="a376" id="a376" class="graf graf--p graf--empty graf-after--pre graf--trailing"><br></p></div></div></section>
+</section>
+<footer><p><a href="https://medium.com/p/dc1c79a92f0e">View original.</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>

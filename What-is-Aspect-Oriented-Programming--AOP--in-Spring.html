@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>What is Aspect Oriented Programming (AOP) in SPring</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">What is Aspect Oriented Programming (AOP) in SPring</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Aspect Oriented Programming is a pluggable way to do something before, after, or around a method call. Consider that you have an existing…
+</section>
+<section data-field="body" class="e-content">
+<section name="dd0d" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="e5d6" id="e5d6" class="graf graf--h3 graf--leading graf--title">What is Aspect Oriented Programming (AOP) in Spring</h3><figure name="c990" id="c990" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="0*16tpZ6oJ8gLpTzvR" data-width="2592" data-height="3872" src="https://cdn-images-1.medium.com/max/800/0*16tpZ6oJ8gLpTzvR"><figcaption class="imageCaption">Photo by <a href="https://unsplash.com/@grafixgurl247?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com/@grafixgurl247?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-creator noopener" target="_blank">Rachel Cook</a> on <a href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-source noopener" target="_blank">Unsplash</a></figcaption></figure><p name="d893" id="d893" class="graf graf--p graf-after--figure">Aspect Oriented Programming is a pluggable way to do something before, after, or around a method call. Consider that you have an existing project and you need to add some functionality before each method in a specific class called. This could be adding logger messages, for example.</p><p name="652d" id="652d" class="graf graf--p graf-after--p">In the spring <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop" data-href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#aop" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">official documentation</a>, you can find many terminologies used. Those include:</p><ol class="postList"><li name="a7f9" id="a7f9" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Aspect:</strong> The class that handles code to intercept method calls in a specified class. Use @Aspect on class level</li><li name="800f" id="800f" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Join Point:</strong> It is the method to be intercepted.</li><li name="e4ce" id="e4ce" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Advice:</strong> Action that could be taken on a method. It could be — <em class="markup--em markup--li-em">before</em>, <em class="markup--em markup--li-em">after</em>, <em class="markup--em markup--li-em">around</em>, <em class="markup--em markup--li-em">afterReturning</em> or <em class="markup--em markup--li-em">afterThrowing</em> any exception from the JointPoint(method)</li><li name="722e" id="722e" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Pointcut:</strong> The predicate that matches the join points. It could be all methods in a class. By default, spring uses the AspectJ pointcut expression language.</li><li name="b12b" id="b12b" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Introduction: </strong>Spring AOP lets you introduce new interfaces (and a corresponding implementation) to any advised object.</li><li name="1311" id="1311" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Target Object: </strong>An object being advised by one or more aspects.</li><li name="5d67" id="5d67" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">AOP proxy: </strong>It is an object created by the AOP framework in order to implement the aspect contracts</li><li name="7830" id="7830" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Weaving: </strong>Linking aspects with other application types or objects to create an advised object. Spring AOP, performs weaving at runtime.</li></ol><p name="e842" id="e842" class="graf graf--p graf-after--li">Types of advices in AOP:</p><ul class="postList"><li name="54b7" id="54b7" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Before advice: </strong>The method that will run before the join point (method).</li><li name="3401" id="3401" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">After advice: </strong>The method that will run after execution of join point.</li><li name="effd" id="effd" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">After Returning advice: </strong>The method that will run after any value is returned by the join point</li><li name="7e5c" id="7e5c" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">After Throwing advice: </strong>If any exception thrown by the join point, this advice will be executed</li><li name="954d" id="954d" class="graf graf--li graf-after--li graf--trailing"><strong class="markup--strong markup--li-strong">Around advice: </strong>The method that will run before and after method invocation. It can also, choose to proceed to joint point call or to return its own value or throw an exception without proceeding to actual method call.</li></ul></div></div></section><section name="f87c" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="eb19" id="eb19" class="graf graf--p graf--leading">If you are using Springboot, the required libraries will be present in it, by default.</p><p name="f43a" id="f43a" class="graf graf--p graf-after--p">Now, talking about join points that need to be intercepted by the advice in aspect, we can have a simple class with the below methods:</p><figure name="86d9" id="86d9" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/00f9ebcdb587fbbf069f803db275540f.js"></script></figure><p name="d928" id="d928" class="graf graf--p graf-after--figure">The configuration class will look as below:</p><figure name="e415" id="e415" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/35a850bfe689ecfb97a03140e5989916.js"></script></figure><p name="8290" id="8290" class="graf graf--p graf-after--figure">Here,</p><pre name="67c4" id="67c4" class="graf graf--pre graf-after--p">@EnableAspectJAutoProxy(proxyTargetClass=true)</pre><p name="ca22" id="ca22" class="graf graf--p graf-after--pre">Spring <code class="markup--code markup--p-code">@EnableAspectJAutoProxy</code> annotation used with <code class="markup--code markup--p-code">@Configuration</code> annotation enables support for handling components marked with <code class="markup--code markup--p-code">@Aspect</code> annotation of AspectJ.</p><p name="2a0b" id="2a0b" class="graf graf--p graf-after--p">We can control the type of proxy by using the <strong class="markup--strong markup--p-strong">proxyTargetClass</strong> attribute. By default, it will be <strong class="markup--strong markup--p-strong">false</strong>.</p><p name="5bff" id="5bff" class="graf graf--p graf-after--p">The sample Aspect class is as below:</p><figure name="ec10" id="ec10" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/1e7ddd67f45f9273fd4fdd65cfb0e948.js"></script></figure><p name="b1a6" id="b1a6" class="graf graf--p graf-after--figure">In the above class, we can see the class is annotated with <code class="markup--code markup--p-code">@Aspect</code> to mark it as Aspect. We need to add<code class="markup--code markup--p-code">@Component</code> as well, so that Spring can get to know about it in application startup.</p><p name="825a" id="825a" class="graf graf--p graf-after--p">Each method in this class is an Advice as annotated and they are self-explainatory. The attributes,</p><ul class="postList"><li name="2ef8" id="2ef8" class="graf graf--li graf-after--p">a predicate to match the join points.</li><li name="1d64" id="1d64" class="graf graf--li graf-after--li">parameters if underlying join points takes any, so that any validations can be performed.</li><li name="7b6b" id="7b6b" class="graf graf--li graf-after--li">if Advice is “afterThrowing”, we need to pass type of exception to check for in parameter.</li></ul><blockquote name="b889" id="b889" class="graf graf--blockquote graf-after--li">Many more details on predicates used in pointcut expression can be found <a href="https://docs.spring.io/spring-framework/docs/2.0.x/reference/aop.html" data-href="https://docs.spring.io/spring-framework/docs/2.0.x/reference/aop.html" class="markup--anchor markup--blockquote-anchor" rel="noopener" target="_blank">official documentation</a></blockquote><p name="7af9" id="7af9" class="graf graf--p graf-after--blockquote">The output after running the application is:</p><pre name="9118" id="9118" class="graf graf--pre graf-after--p">-Around advice: before<br>-Before advice: MainController-&gt; getStudentDetail<br>-Actual class: returning student details<br>-AfterReturning advice: MainController-&gt; getStudentDetail<br>-After advice: MainController-&gt; getStudentDetail<br>-Around advice: after</pre><pre name="2eb5" id="2eb5" class="graf graf--pre graf-after--pre">==========================================<br>Calling method that throws error<br>-Actual class: Error returning student details<br>-AfterThrowing advice: -&gt; getStudentError<br>Exception is:/ by zero<br>handled error:/ by zero</pre><p name="7740" id="7740" class="graf graf--p graf-after--pre">References:</p><ol class="postList"><li name="a739" id="a739" class="graf graf--li graf-after--p"><a href="https://www.baeldung.com/spring-aop-pointcut-tutorial" data-href="https://www.baeldung.com/spring-aop-pointcut-tutorial" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://www.baeldung.com/spring-aop-pointcut-tutorial</a></li><li name="a11d" id="a11d" class="graf graf--li graf-after--li"><a href="https://docs.spring.io/spring-framework/docs/2.0.x/reference/aop.html" data-href="https://docs.spring.io/spring-framework/docs/2.0.x/reference/aop.html" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://docs.spring.io/spring-framework/docs/2.0.x/reference/aop.html</a></li></ol><p name="612f" id="612f" class="graf graf--p graf-after--li">The complete code can be found on Github <a href="https://github.com/oldfr/aop-overview" data-href="https://github.com/oldfr/aop-overview" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">here</a>.</p><p name="ddc8" id="ddc8" class="graf graf--p graf-after--p graf--trailing">Thank you for reading. Happy exploring!!!</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@ankithahjpgowda" class="p-author h-card">Ankitha Gowda</a> on <a href="https://medium.com/p/e7a845d904e"><time class="dt-published" datetime="2022-09-09T11:48:01.758Z">September 9, 2022</time></a>.</p><p><a href="https://medium.com/@ankithahjpgowda/what-is-aspect-oriented-programming-aop-in-spring-e7a845d904e" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>

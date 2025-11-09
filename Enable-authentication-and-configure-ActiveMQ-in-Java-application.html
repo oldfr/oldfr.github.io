@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Enable authentication and configure ActiveMQ in Java application</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Enable authentication and configure ActiveMQ in Java application</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Photo by Bermix Studio on Unsplash
+</section>
+<section data-field="body" class="e-content">
+<section name="ee42" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="a125" id="a125" class="graf graf--h3 graf--leading graf--title">Enable authentication and configure ActiveMQ in Java application</h3><figure name="2549" id="2549" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="0*bydntwiQ0GcSCn1q" data-width="2440" data-height="3064" src="https://cdn-images-1.medium.com/max/800/0*bydntwiQ0GcSCn1q"><figcaption class="imageCaption">Photo by Bermix Studio on Unsplash</figcaption></figure><p name="32ac" id="32ac" class="graf graf--p graf-after--figure graf--trailing">Hey There, as you might know, Apache ActiveMQ is the most popular open-source, multi-protocol, Java-based message broker. But, by default it does not have strict authentication to access from any application. It works without a username and password. You could configure it if required. Let&#39;s look at how we can do it.</p></div></div></section><section name="84a3" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="cb86" id="cb86" class="graf graf--p graf--leading">Today, I will show you how we can enable authentication in ActiveMQ and connect to it from our Java application. You can download the ActiveMQ if not already present from the <a href="https://activemq.apache.org/components/classic/download/" data-href="https://activemq.apache.org/components/classic/download/" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">official documentation</a>.</p><ul class="postList"><li name="be17" id="be17" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">To enable authentication in public ActiveMQ</strong></li></ul><p name="78a5" id="78a5" class="graf graf--p graf-after--li">To enable authentication, you can use Simple Authentication Plugin in your activemq.xml file located in <em class="markup--em markup--p-em">conf</em> folder. Add below inside &lt;broker&gt; tag with required username and password.</p><p name="3f82" id="3f82" class="graf graf--p graf-after--p">activemq.xml:</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="undefined" name="608f" id="608f" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">&lt;plugins&gt;<br />   &lt;simpleAuthenticationPlugin anonymousAccessAllowed=&quot;false&quot;&gt;<br />     &lt;users&gt;<br />         &lt;authenticationUser username=&quot;system&quot; password=&quot;system&quot; groups=&quot;users,admins&quot;/&gt;<br />         &lt;authenticationUser username=&quot;test01&quot; password=&quot;test01&quot; groups=&quot;users,admins&quot;/&gt;<br />     &lt;/users&gt;<br />   &lt;/simpleAuthenticationPlugin&gt;<br />&lt;/plugins&gt;</span></pre><p name="2d4e" id="2d4e" class="graf graf--p graf-after--pre">We can use any of these credentials to connect to ActiveMQ from our application. Any wrong credentials won’t work.</p><blockquote name="fb74" id="fb74" class="graf graf--blockquote graf-after--p">Set anonymousAccessAllowed = true, if you want to allow anonymous user access. Get more information on this <a href="https://activemq.apache.org/security" data-href="https://activemq.apache.org/security" class="markup--anchor markup--blockquote-anchor" rel="noopener" target="_blank">here</a>.</blockquote><p name="de41" id="de41" class="graf graf--p graf-after--blockquote"><strong class="markup--strong markup--p-strong">To update default credentials:</strong></p><p name="b1f4" id="b1f4" class="graf graf--p graf-after--p">Among the above credentials, the one to be used by default, need to be provided in <em class="markup--em markup--p-em">credentials.properties</em> file as below:</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="undefined" name="70e1" id="70e1" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">activemq.username=test01<br />activemq.password=test01</span></pre><p name="98a7" id="98a7" class="graf graf--p graf-after--pre"><strong class="markup--strong markup--p-strong">To update credentials for web console access:</strong></p><p name="7c16" id="7c16" class="graf graf--p graf-after--p">By default, web console access is using credentials admin/admin. To update it, add credentials in <em class="markup--em markup--p-em">jetty-realm.properties</em> file as below:</p><pre data-code-block-mode="1" spellcheck="false" data-code-block-lang="undefined" name="df45" id="df45" class="graf graf--pre graf-after--p graf--preV2"><span class="pre--content">admin: system, admin<br />user: user, user</span></pre><p name="f6eb" id="f6eb" class="graf graf--p graf-after--pre">It is in the format:- <em class="markup--em markup--p-em">username: password [,rolename...] </em>with optional rolenames.</p><p name="8306" id="8306" class="graf graf--p graf-after--p graf--trailing">Whenever you access <a href="http://localhost:8161" data-href="http://localhost:8161" class="markup--anchor markup--p-anchor" target="_blank">http://localhost:8161</a> , you need to give either <em class="markup--em markup--p-em">username</em> = admin and <em class="markup--em markup--p-em">password</em>= system (or ) <em class="markup--em markup--p-em">username</em> = user and <em class="markup--em markup--p-em">password</em> = user.</p></div></div></section><section name="a4b9" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><ul class="postList"><li name="728c" id="728c" class="graf graf--li graf--leading"><strong class="markup--strong markup--li-strong">Configure ActiveMQ in our Application</strong></li></ul><p name="22c6" id="22c6" class="graf graf--p graf-after--li">We can use the below steps to configure ActiveMQ if we are using AmazonMQ or public authentication enabled ActiveMQ.</p><p name="c4f8" id="c4f8" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">a. From external properties file:</strong></p><p name="42c4" id="42c4" class="graf graf--p graf-after--p">If you are using the properties file to fetch connection details, below is the sample file. The name of the properties file could anything. So, we will use the custom file name activeMQjndi.properties. We just need to specify the filename while creating the connection object:</p><figure name="f570" id="f570" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/cea052044abb7afba3d642fbc823e8aa.js"></script></figure><p name="233f" id="233f" class="graf graf--p graf-after--figure">Create ActiveMQConnectionFactory bean as below:</p><figure name="9d67" id="9d67" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/3d570f011f718f72e34360387622cd96.js"></script></figure><p name="5baf" id="5baf" class="graf graf--p graf-after--figure">Here, InitialContext object is created using properties in file. This internally invokes getInitialContext() in ActiveMQInitialContextFactory class to create connection.</p><blockquote name="52ef" id="52ef" class="graf graf--blockquote graf-after--p">More details on ActiveMQInitialContextFactory is available in <a href="https://activemq.apache.org/maven/apidocs/org/apache/activemq/ActiveMQConnectionFactory.html" data-href="https://activemq.apache.org/maven/apidocs/org/apache/activemq/ActiveMQConnectionFactory.html" class="markup--anchor markup--blockquote-anchor" rel="noopener" target="_blank">official documentation</a></blockquote><p name="f677" id="f677" class="graf graf--p graf-after--blockquote"><strong class="markup--strong markup--p-strong">b. from environment variables in Springboot application</strong></p><p name="f389" id="f389" class="graf graf--p graf-after--p">We can provide credentials in the environment variable of your IDE or application.properties file and create ActiveMQConnectionFactory bean as below:</p><figure name="2afd" id="2afd" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/60fff1311d55c520fca23909db8afeee.js"></script></figure><p name="aeea" id="aeea" class="graf graf--p graf-after--figure">These are the few scenarios I came across. More details on using ActiveMQ in Springboot is available in the <a href="https://medium.com/@ankithahjpgowda/activemq-using-jmstemplate-in-spring-boot-710b168d8fd3" data-href="https://medium.com/@ankithahjpgowda/activemq-using-jmstemplate-in-spring-boot-710b168d8fd3" class="markup--anchor markup--p-anchor" target="_blank">medium article</a>.</p><p name="3df1" id="3df1" class="graf graf--p graf-after--p">The complete code can be found on GitHub <a href="https://github.com/oldfr/ActiveMQOverview" data-href="https://github.com/oldfr/ActiveMQOverview" class="markup--anchor markup--p-anchor" rel="noopener ugc nofollow noopener noopener" target="_blank">here</a>.</p><p name="44bf" id="44bf" class="graf graf--p graf-after--p graf--trailing">Thank you for reading. Happy exploring!!!</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@ankithahjpgowda" class="p-author h-card">Ankitha Gowda</a> on <a href="https://medium.com/p/5c3d1c185a67"><time class="dt-published" datetime="2022-02-04T06:58:06.052Z">February 4, 2022</time></a>.</p><p><a href="https://medium.com/@ankithahjpgowda/enable-authentication-and-configure-activemq-in-java-application-5c3d1c185a67" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>

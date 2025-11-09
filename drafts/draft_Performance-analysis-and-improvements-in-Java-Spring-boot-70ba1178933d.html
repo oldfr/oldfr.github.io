@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Performance analysis and improvements in Java Spring boot</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Performance analysis and improvements in Java Spring boot</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Recently I got to work on the performance improvement of our application. Since I was doing such analysis for the first time, I had to…
+</section>
+<section data-field="body" class="e-content">
+<section name="7564" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="1d07" id="1d07" class="graf graf--h3 graf--leading graf--title">Performance Analysis and Improvements in JAVA</h3><figure name="8d51" id="8d51" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="0*Sy3lVrlx2TK2CI-I" data-width="5184" data-height="3456" data-unsplash-photo-id="yYRAvcPrWms" src="https://cdn-images-1.medium.com/max/800/0*Sy3lVrlx2TK2CI-I"><figcaption class="imageCaption">Photo by <a href="https://unsplash.com/@polarmermaid?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com/@polarmermaid?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-creator noopener" target="_blank">Anne Nygård</a> on <a href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-source noopener" target="_blank">Unsplash</a></figcaption></figure><p name="44b0" id="44b0" class="graf graf--p graf--hasDropCapModel graf--hasDropCap graf-after--figure"><span class="graf-dropCap">E</span>fficient application uses resources to enhance its allocation with optimum operational cost-effectively. </p><p name="d34f" id="d34f" class="graf graf--p graf-after--p">I recently worked on improving our application&#39;s performance. Since this was my first time conducting such an analysis, I read about different criteria that might contribute to memory leaks or long execution times.</p><p name="fb6a" id="fb6a" class="graf graf--p graf-after--p">Here, I will share my analysis of different criteria that could affect performance:</p><ol class="postList"><li name="6048" id="6048" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">Infrastructure—</strong>If you have a thread-heavy application, i.e., a CPU-bound application, you can increase the number of cores in the deployment environment.</li><li name="6c00" id="6c00" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Parallelism techniques:</strong> Check the number of cores in the CPU and use it efficiently.<strong class="markup--strong markup--li-strong"> </strong>Then, choose an approach where parallelism is configurable. For example, in Java, we can choose <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html" data-href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">CompletableFuture</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html" data-href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ExecutorService.html" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">ExecutorService</a>, or <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html" data-href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ForkJoinPool.html" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">ForkJoinPool</a> based on the requirement.</li><li name="322f" id="322f" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Ideal heap size — </strong> Suppose your service has allocated 12GB of memory. But, you set the minimum for heap size as 2GB and the maximum as 4 GB. You are not using the whole allocated memory. It will cap to the max size set. Choose ideal min and max values for the heap. </li><li name="733b" id="733b" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">GC Options —</strong> The garbage collector plays an important role in removing unwanted objects from memory making space for new ones. Also, we should ensure this does not cause a delay in code execution. You can look <a href="https://docs.oracle.com/en/java/javase/11/gctuning/preface.html#GUID-5650179B-DC2A-4F25-B2C6-F3961C93FD07" data-href="https://docs.oracle.com/en/java/javase/11/gctuning/preface.html#GUID-5650179B-DC2A-4F25-B2C6-F3961C93FD07" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">here</a> for all available GC options.</li><li name="8308" id="8308" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">Poor implementation — </strong>There is a chance that our code uses unnecessary iterations that cause delays in execution. Go with multiple levels of code reviews before moving it to production. Revisit the code for improvements in constant intervals.</li></ol><p name="3ff4" id="3ff4" class="graf graf--p graf-after--li graf--trailing">Nowadays, many tools called profilers are available that collect and analyze multiple metrics helping to identify any memory leaks and performance bottlenecks. Some of the tools are JProfiler, Spring Profiler, etc,</p></div></div></section><section name="0305" class="section section--body"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="dccd" id="dccd" class="graf graf--p graf--leading"><strong class="markup--strong markup--p-strong">Choosing Optimal GC Options:</strong></p><p name="cd81" id="cd81" class="graf graf--p graf-after--p">Some applications must have low response times even under high load. To achieve this, along with other factors, we can use different GC tuning strategies that generally result in the best performance.</p><p name="99d8" id="99d8" class="graf graf--p graf-after--p">Certain tuning strategies are designed to yield the lowest average garbage collection times or minimize the frequency of full GCs. Those strategies can sometimes result in one or more very long periods of garbage collection (often several seconds long). To maintain our low response time, all long GC intervals must be avoided.</p><p name="499b" id="499b" class="graf graf--p graf--empty graf-after--p"><br></p><p name="06f4" id="06f4" class="graf graf--p graf-after--p">A key factor in maintaining brief response times is the proper selection and tuning of the JVM’s Garbage Collection (GC) algorithm.</p><ul class="postList"><li name="dd3d" id="dd3d" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">-Xms, -Xmx</strong>: Places boundaries on the heap size to increase the predictability of garbage collection. <strong class="markup--strong markup--li-strong">-Xms</strong> sets the starting size to prevent pauses caused by heap expansion. <strong class="markup--strong markup--li-strong">-Xmx </strong>sets the maximum size the heap could grow.</li><li name="de5e" id="de5e" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:+UseG1GC</strong>: Use the Garbage First (G1) Collector. Details can be found <a href="https://www.oracle.com/technical-resources/articles/java/g1gc.html" data-href="https://www.oracle.com/technical-resources/articles/java/g1gc.html" class="markup--anchor markup--li-anchor" rel="noopener" target="_blank">here</a></li><li name="2816" id="2816" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:MaxGCPauseMillis</strong>: Sets a target for the maximum GC pause time. This is a soft goal, and the JVM will try to achieve it.</li><li name="7e5d" id="7e5d" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:ParallelGCThreads</strong>: Sets the number of threads used during parallel phases of the garbage collectors. The default value varies with the platform on which the JVM is running.</li><li name="9d29" id="9d29" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:ConcGCThreads</strong>: Number of threads concurrent garbage collectors will use. The default value varies with the platform on which the JVM is running.</li><li name="936e" id="936e" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:InitiatingHeapOccupancyPercent</strong>: Percentage of the (entire) heap occupancy to start a concurrent GC cycle. GCs that trigger a concurrent GC cycle based on the occupancy of the entire heap and not just one of the generations, including G1, use this option. A value of 0 denotes ‘do constant GC cycles’. The default value is 45.</li></ul><p name="c771" id="c771" class="graf graf--p graf--empty graf-after--li"><br></p><p name="24c0" id="24c0" class="graf graf--p graf-after--p graf--trailing">You can run <code class="markup--code markup--p-code">java -help</code> or <code class="markup--code markup--p-code">java -X</code> to see a list of available options and their descriptions.</p></div></div></section><section name="f2d5" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="ca8b" id="ca8b" class="graf graf--p graf--leading">These are my observations on performance. Let me know if any other factors contribute to improving the application behavior.</p><p name="511e" id="511e" class="graf graf--p graf-after--p">Thank you for reading. Happy exploring!!!</p><p name="de46" id="de46" class="graf graf--p graf--empty graf-after--p"><br></p><p name="4337" id="4337" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">References:</strong></p><p name="71dc" id="71dc" class="graf graf--p graf-after--p"><a href="https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2" data-href="https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2" class="markup--anchor markup--p-anchor" rel="nofollow noopener noopener" target="_blank">https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2</a></p><p name="587d" id="587d" class="graf graf--p graf-after--p"><a href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html" data-href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html" class="markup--anchor markup--p-anchor" rel="nofollow noopener noopener" target="_blank">https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html</a></p><p name="c396" id="c396" class="graf graf--p graf-after--p"><a href="https://blog.stackademic.com/how-g1gc-works-in-java-390332333b2" data-href="https://blog.stackademic.com/how-g1gc-works-in-java-390332333b2" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://blog.stackademic.com/how-g1gc-works-in-java-390332333b2</a></p><p name="3291" id="3291" class="graf graf--p graf-after--p"><a href="https://www.oracle.com/technical-resources/articles/java/g1gc.html" data-href="https://www.oracle.com/technical-resources/articles/java/g1gc.html" class="markup--anchor markup--p-anchor" rel="nofollow noopener" target="_blank">https://www.oracle.com/technical-resources/articles/java/g1gc.html</a></p><p name="31d5" id="31d5" class="graf graf--p graf--empty graf-after--p"><br></p><p name="4d0b" id="4d0b" class="graf graf--p graf--empty graf-after--p"><br></p><p name="af73" id="af73" class="graf graf--p graf--empty graf-after--p"><br></p><p name="ffc3" id="ffc3" class="graf graf--p graf--empty graf-after--p"><br></p><p name="9a43" id="9a43" class="graf graf--p graf--empty graf-after--p graf--trailing"><br></p></div></div></section>
+</section>
+<footer><p><a href="https://medium.com/p/70ba1178933d">View original.</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>

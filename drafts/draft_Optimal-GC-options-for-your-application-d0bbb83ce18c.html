@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Optimal GC options for your application</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">Optimal GC options for your application</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+Some applications are critical to have extremely low response times for clients even under high loads. To achieve this, we can use…
+</section>
+<section data-field="body" class="e-content">
+<section name="e885" class="section section--body section--first section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="7c37" id="7c37" class="graf graf--h3 graf--leading graf--title">Optimal GC options for your application</h3><p name="e15d" id="e15d" class="graf graf--p graf--empty graf-after--h3"><br></p><p name="f678" id="f678" class="graf graf--p graf-after--p">Some applications are critical to have extremely low response times for clients even under high loads. To achieve this, we can use different GC tuning strategies that generally result in the best performance.</p><p name="99d8" id="99d8" class="graf graf--p graf-after--p">Whereas certain tuning strategies are designed to yield the lowest average garbage collection times or to minimize the frequency of full GCs, those strategies can sometimes result in one or more very long periods of garbage collection (often several seconds long) that are offset by shorter GC intervals. To maintain response time goals, all long GC intervals must be avoided.</p><p name="1511" id="1511" class="graf graf--p graf-after--p">The simplest and most reliable way to achieve short garbage collection times over the lifetime of a production server is to use a fixed heap size with the collector and the parallel young generation collector, restricting the new generation size to at most one-third of the overall heap.</p><p name="5bc7" id="5bc7" class="graf graf--p graf--empty graf-after--p"><br></p><p name="851f" id="851f" class="graf graf--p graf--empty graf-after--p"><br></p><p name="06f4" id="06f4" class="graf graf--p graf-after--p">A key factor in maintaining brief response times is the proper selection and tuning of the JVM’s Garbage Collection (GC) algorithm.</p><p name="ffea" id="ffea" class="graf graf--p graf--empty graf-after--p"><br></p><ul class="postList"><li name="dd3d" id="dd3d" class="graf graf--li graf-after--p"><strong class="markup--strong markup--li-strong">-Xms, -Xmx</strong>: Places boundaries on the heap size to increase the predictability of garbage collection. The heap size is limited in replica servers so that even Full GCs do not trigger SIP retransmissions. <strong class="markup--strong markup--li-strong">-Xms</strong> sets the starting size to prevent pauses caused by heap expansion.</li><li name="de5e" id="de5e" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:+UseG1GC</strong>: Use the Garbage First (G1) Collector.</li><li name="2816" id="2816" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:MaxGCPauseMillis</strong>: Sets a target for the maximum GC pause time. This is a soft goal, and the JVM will try to achieve it.</li><li name="7e5d" id="7e5d" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:ParallelGCThreads</strong>: Sets the number of threads used during parallel phases of the garbage collectors. The default value varies with the platform on which the JVM is running.</li><li name="9d29" id="9d29" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:ConcGCThreads</strong>: Number of threads concurrent garbage collectors will use. The default value varies with the platform on which the JVM is running.</li><li name="936e" id="936e" class="graf graf--li graf-after--li"><strong class="markup--strong markup--li-strong">-XX:InitiatingHeapOccupancyPercent</strong>: Percentage of the (entire) heap occupancy to start a concurrent GC cycle. GCs that trigger a concurrent GC cycle based on the occupancy of the entire heap and not just one of the generations, including G1, use this option. A value of 0 denotes ‘do constant GC cycles’. The default value is 45.</li></ul><p name="1ba7" id="1ba7" class="graf graf--p graf--empty graf-after--li"><br></p><p name="24c0" id="24c0" class="graf graf--p graf-after--p">you can run <code class="markup--code markup--p-code">java -help</code> or <code class="markup--code markup--p-code">java -X</code> to see a list of available options and their descriptions.</p><p name="d9d1" id="d9d1" class="graf graf--p graf--empty graf-after--p"><br></p><p name="2458" id="2458" class="graf graf--p graf-after--p">references:</p><ul class="postList"><li name="71dc" id="71dc" class="graf graf--li graf-after--p"><a href="https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2" data-href="https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://docs.oracle.com/cd/E40972_01/doc.70/e40973/cnf_jvmgc.htm#autoId2</a></li><li name="587d" id="587d" class="graf graf--li graf-after--li"><a href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html" data-href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html" class="markup--anchor markup--li-anchor" rel="nofollow noopener" target="_blank">https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/G1GettingStarted/index.html</a></li><li name="ed5c" id="ed5c" class="graf graf--li graf--empty graf-after--li graf--trailing"><br></li></ul></div></div></section>
+</section>
+<footer><p><a href="https://medium.com/p/d0bbb83ce18c">View original.</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>API Code generation using Swagger in Springboot</title><style>
+      * {
+        font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        font-size: 50px;
+        margin-bottom: 17px;
+        color: #333;
+      }
+      h2 {
+        font-size: 24px;
+        line-height: 1.6;
+        margin: 30px 0 0 0;
+        margin-bottom: 18px;
+        margin-top: 33px;
+        color: #333;
+      }
+      h3 {
+        font-size: 30px;
+        margin: 10px 0 20px 0;
+        color: #333;
+      }
+      header {
+        width: 640px;
+        margin: auto;
+      }
+      section {
+        width: 640px;
+        margin: auto;
+      }
+      section p {
+        margin-bottom: 27px;
+        font-size: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      section img {
+        max-width: 640px;
+      }
+      footer {
+        padding: 0 20px;
+        margin: 50px 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .aspectRatioPlaceholder {
+        max-width: auto !important;
+        max-height: auto !important;
+      }
+      .aspectRatioPlaceholder-fill {
+        padding-bottom: 0 !important;
+      }
+      header,
+      section[data-field=subtitle],
+      section[data-field=description] {
+        display: none;
+      }
+      </style></head><body><article class="h-entry">
+<header>
+<h1 class="p-name">API Code generation using Swagger in Springboot</h1>
+</header>
+<section data-field="subtitle" class="p-summary">
+API allows two systems to talk to each other. We can perform required CRUD operations using them in the target system i.e, Create, Read…
+</section>
+<section data-field="body" class="e-content">
+<section name="a771" class="section section--body section--first"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><h3 name="0930" id="0930" class="graf graf--h3 graf--leading graf--title">API Code generation using Swagger in Springboot</h3><figure name="3cde" id="3cde" class="graf graf--figure graf-after--h3"><img class="graf-image" data-image-id="0*F8tirU7DqTNJB_49" data-width="5430" data-height="3620" data-unsplash-photo-id="0w-uTa0Xz7w" data-is-featured="true" src="https://cdn-images-1.medium.com/max/800/0*F8tirU7DqTNJB_49"><figcaption class="imageCaption">Photo by <a href="https://unsplash.com/@karsten_wuerth?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com/@karsten_wuerth?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-creator noopener" target="_blank">Karsten Würth</a> on <a href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" data-href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral" class="markup--anchor markup--figure-anchor" rel="photo-source noopener" target="_blank">Unsplash</a></figcaption></figure><p name="522a" id="522a" class="graf graf--p graf-after--figure graf--trailing">API allows two systems to talk to each other. We can perform required CRUD operations using them in the target system i.e, Create, Read, Update or Delete of resources can be done using APIs. Today, we will look at how we can auto-generate the REST API code using swagger specification in a springboot application.</p></div></div></section><section name="3bab" class="section section--body section--last"><div class="section-divider"><hr class="section-divider"></div><div class="section-content"><div class="section-inner sectionLayout--insetColumn"><p name="c680" id="c680" class="graf graf--p graf--leading">For this purpose, we need to include <code class="markup--code markup--p-code">yaml</code> file in our project code, based on which code will be generated in the mentioned location. To make use of this auto-generated code we need to implement generated interface and provide our own logic.</p><p name="e5fd" id="e5fd" class="graf graf--p graf-after--p">First of all, we need the below dependencies and configuration in our <code class="markup--code markup--p-code">pom.xml</code> file</p><pre name="ea5f" id="ea5f" class="graf graf--pre graf-after--p">&lt;dependency&gt;<br>   &lt;groupId&gt;io.springfox&lt;/groupId&gt;<br>   &lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;<br>   &lt;version&gt;3.0.0&lt;/version&gt;<br>&lt;/dependency&gt;<br>&lt;dependency&gt;<br>   &lt;groupId&gt;javax.validation&lt;/groupId&gt;<br>   &lt;artifactId&gt;validation-api&lt;/artifactId&gt;<br>   &lt;version&gt;1.1.0.Final&lt;/version&gt;<br>&lt;/dependency&gt;</pre><p name="6b06" id="6b06" class="graf graf--p graf-after--pre">and below plugin with path to yaml file having API definition, location to store generated code.</p><pre name="6048" id="6048" class="graf graf--pre graf-after--p">&lt;build&gt;<br>   &lt;plugins&gt;<br>      &lt;plugin&gt;<br>         &lt;groupId&gt;io.swagger&lt;/groupId&gt;<br>         &lt;artifactId&gt;swagger-codegen-maven-plugin&lt;/artifactId&gt;<br>         &lt;version&gt;2.4.16&lt;/version&gt;<br>         &lt;executions&gt;<br>            &lt;execution&gt;<br>               &lt;goals&gt;<br>                  &lt;goal&gt;generate&lt;/goal&gt;<br>               &lt;/goals&gt;<br>               &lt;configuration&gt;<br>                  &lt;inputSpec&gt;./api-def/apiDefinition.yaml&lt;/inputSpec&gt;<br>                  &lt;language&gt;spring&lt;/language&gt;<br>                  &lt;configOptions&gt;<br>                     &lt;sourceFolder&gt;swagger&lt;/sourceFolder&gt;<br>                     &lt;java8&gt;true&lt;/java8&gt;<br>                     &lt;interfaceOnly&gt;true&lt;/interfaceOnly&gt;<br>                     &lt;modelPackage&gt;com.example.swaggercodegenerationoverview.model&lt;/modelPackage&gt;<br>                     &lt;apiPackage&gt;com.example.swaggercodegenerationoverview.api&lt;/apiPackage&gt;<br>                     &lt;useBeanValidation&gt;true&lt;/useBeanValidation&gt;<br>                  &lt;/configOptions&gt;<br>               &lt;/configuration&gt;<br>            &lt;/execution&gt;<br>         &lt;/executions&gt;<br>      &lt;/plugin&gt;<br>   &lt;/plugins&gt;<br>&lt;/build&gt;</pre><p name="f10f" id="f10f" class="graf graf--p graf-after--pre">As specified above, our API definitions are present in <code class="markup--code markup--p-code">./api-def/apiDefinition.yaml</code> . Generated API code will be present in <code class="markup--code markup--p-code">com.example.swaggercodegenerationoverview.api</code> . If any model classes, they will be stored in <code class="markup--code markup--p-code">com.example.swaggercodegenerationoverview.model</code></p><figure name="cb1e" id="cb1e" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*fLRGW-RAIE3V2byTnMwJ9g.png" data-width="471" data-height="455" src="https://cdn-images-1.medium.com/max/800/1*fLRGW-RAIE3V2byTnMwJ9g.png"></figure><p name="baef" id="baef" class="graf graf--p graf-after--figure">A sample swagger spec that could be in <code class="markup--code markup--p-code">apiDefinition.yaml</code> maybe as below</p><figure name="0e96" id="0e96" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/cd4edaa7e6fd88ee1912d77c7cac02d7.js"></script></figure><blockquote name="1937" id="1937" class="graf graf--blockquote graf-after--figure">More detail on YAML format can be found <a href="https://en.wikipedia.org/wiki/YAML" data-href="https://en.wikipedia.org/wiki/YAML" class="markup--anchor markup--blockquote-anchor" rel="noopener" target="_blank">here</a></blockquote><p name="2d7e" id="2d7e" class="graf graf--p graf-after--blockquote">Under paths key, we need to specify all paths required to be generated. It need to have,</p><ol class="postList"><li name="b1e5" id="b1e5" class="graf graf--li graf-after--p"><em class="markup--em markup--li-em">API endpoint</em> — path with any path params involved within braces</li><li name="477e" id="477e" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">HTTP method </em>—the type of API i.e, get, put, post, delete, etc.</li><li name="a79a" id="a79a" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">summary </em>— description of the API</li><li name="45f7" id="45f7" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">produces</em> — format of the response</li><li name="035f" id="035f" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">tag</em> — tag for the API</li><li name="3621" id="3621" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">responses</em> — various response codes and their format</li><li name="9335" id="9335" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">parameters</em> — parameters involved, query param or path param</li><li name="9e0b" id="9e0b" class="graf graf--li graf-after--li"><em class="markup--em markup--li-em">operationId</em> — the name of the function to be generated</li></ol><p name="eabf" id="eabf" class="graf graf--p graf-after--li">If any model classes are required, like in case of request payload or response. In that case, we need to provide definitions for them as well with all parameters involved.</p><p name="b718" id="b718" class="graf graf--p graf-after--p"><code class="markup--code markup--p-code">$ref: &#39;#/definitions/myElement&#39;</code> <code class="markup--code markup--p-code">#</code> means go to the root of the current document and then find elements <code class="markup--code markup--p-code">definitions</code> and <code class="markup--code markup--p-code">myElement</code> one after one.</p><p name="0cbf" id="0cbf" class="graf graf--p graf-after--p"><strong class="markup--strong markup--p-strong">Note:</strong> If the parameter value is predefined, we can made them as enums in yaml file</p><blockquote name="b106" id="b106" class="graf graf--blockquote graf-after--p">More detail on Swagger code can be found <a href="https://swagger.io/docs/specification/about/" data-href="https://swagger.io/docs/specification/about/" class="markup--anchor markup--blockquote-anchor" rel="noopener" target="_blank">here</a></blockquote><p name="5713" id="5713" class="graf graf--p graf-after--blockquote">After this, if we do <code class="markup--code markup--p-code">mvn clean install</code> all code will be generated in target folder as below:</p><figure name="80b2" id="80b2" class="graf graf--figure graf-after--p"><img class="graf-image" data-image-id="1*SwqUDF7Fkvs7ihN88KUoXg.png" data-width="461" data-height="751" src="https://cdn-images-1.medium.com/max/800/1*SwqUDF7Fkvs7ihN88KUoXg.png"></figure><p name="f364" id="f364" class="graf graf--p graf-after--figure">StudentApi.java will be generated as below:</p><figure name="b883" id="b883" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/494d1a4ee96cc94eff41ab7a99a02e63.js"></script></figure><p name="4232" id="4232" class="graf graf--p graf-after--figure">Student.java :</p><figure name="cad0" id="cad0" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/f5a2326e6768e3ba09b9b89979b06913.js"></script></figure><p name="a1ce" id="a1ce" class="graf graf--p graf-after--figure">You can now go ahead and implement StudentApi and return the response after implementing the methods. For example as below:</p><figure name="0654" id="0654" class="graf graf--figure graf--iframe graf-after--p"><script src="https://gist.github.com/oldfr/7aee5ed1a2bbc4c2d6da5913cb6b98fd.js"></script></figure><p name="40c4" id="40c4" class="graf graf--p graf-after--figure">The complete code is available <a href="https://github.com/oldfr/SwaggerCodeGenerationOverview" data-href="https://github.com/oldfr/SwaggerCodeGenerationOverview" class="markup--anchor markup--p-anchor" rel="noopener" target="_blank">here</a></p><p name="4629" id="4629" class="graf graf--p graf-after--p graf--trailing">Thank you for reading. Happy exploring!!!</p></div></div></section>
+</section>
+<footer><p>By <a href="https://medium.com/@ankithahjpgowda" class="p-author h-card">Ankitha Gowda</a> on <a href="https://medium.com/p/e6b2fafc583c"><time class="dt-published" datetime="2022-07-11T12:35:30.470Z">July 11, 2022</time></a>.</p><p><a href="https://medium.com/@ankithahjpgowda/api-code-generation-using-swagger-in-springboot-e6b2fafc583c" class="p-canonical">Canonical link</a></p><p>Exported from <a href="https://medium.com">Medium</a> on November 9, 2025.</p></footer></article></body></html>
