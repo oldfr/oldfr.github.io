@@ -5,31 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ankitha Gowda</title>
+    <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 200vh; /* full viewport height */
+    }
+
+    /* Left panel for links */
+    .sidebar {
+      width: 50%;
+      background-color:aquamarine;
+      padding : 20px;
+      box-sizing: border-box;
+      border-right: 1px solid #ccc;
+    }
+
+    .sidebar a {
+      display: block;
+      margin-bottom: 10px;
+      text-decoration: none;
+      color: #333;
+      padding: 8px;
+      border-radius: 6px;
+    }
+
+    .sidebar a:hover {
+      background-color: #ddd;
+    }
+
+    /* Right panel for preview */
+    .preview {
+      background-color: #ddd;
+      flex-grow: 1;
+      border: none;
+      width: 100%;
+    }
+
+        iframe {
+      flex-grow: 1;
+      border: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    </style>
+    
 </head>
 <body>
-    <p><a href="Ways-to-log-database-queries-in-Spring-JDBC.html">Ways to log database queries in Spring_JDBC</a></p>
-    <p><a href="Different-ways-to-send-mails-from-springboot-application.html">Different ways to send mails from springboot application</a></p>
-    <p><a href="Access-Amazon-S3-bucket-from-Java-Springboot.html">Access Amazon S3 bucket from Java Springboot</a></p>
-    <p><a href="ActiveMQ-in-Spring-boot-using-JMSTemplate.html">ActiveMQ in Spring boot using JMSTemplate</a></p>
-    <p><a href="API-Code-generation-using-Swagger-in-Springboot.html">API Code generation using Swagger in Springboot</a></p>
-    <p><a href="API-gateway-in-Spring-boot.html">API gateway in Spring boot</a></p>
-    <p><a href="API-invocation-in-Groovy-Java-without-any-dependencies-jars.html">API invocation in Groovy/Java without any dependencies jars</a></p>
-    <p><a href="Convert--xsd-files-to-Java-classes.html">Convert .xsd files to Java classes</a></p>
-    <p><a href="Different-ways-to-send-mails-from-springboot-application.html">Different ways to send mails from springboot application</a></p>
-    <p><a href="Enable-authentication-and-configure-ActiveMQ-in-Java-application.html">Enable authentication and configure ActiveMQ in Java application</a></p>
-    <p><a href="ExecutorService-in-Java.html">ExecutorService in Java</a></p>
-    <p><a href="gRPC-implementation-in-Springboot-and-microservices.html">gRPC implementation in Springboot and microservices</a></p>
-    <p><a href="Implement-LRU--Least-Recently-Used--Cache-in-JAVA.html">Implement LRU (Least Recently Used) Cache in JAVA</a></p>
-    <p><a href="JWT-authentication-and-role-based-authorization-in-Springboot.html">JWT authentication and role-based authorization in Springboot</a></p>
-    <p><a href="Log-request-and-responses-of-REST-APIs-in-SpringBoot.html">Log request and responses of REST APIs in SpringBoot</a></p>
-    <p><a href="Make-command-line-arguments-easier-using-JCommander-in-Java.html">Make command-line arguments easier using JCommander in Java</a></p>
-    <p><a href="Pipeline-Design-pattern.html">Pipeline Design pattern</a></p>
-    <p><a href="Policies-of-ThreadPoolExecutor-in-Java.html">Policies of ThreadPoolExecutor in Java</a></p>
-    <p><a href="Singleton-Design-Pattern-in-Java.html">Singleton Design Pattern in Java</a></p>
-    <p><a href="Spring-Batch-Overview.html">Spring Batch Overview</a></p>
-    <p><a href="Spring-Retry-Overview.html">Spring Retry Overview</a></p>
-    <p><a href="Update-Hostname-dynamically-in-Spring-Cloud-Gateway.html">Update Hostname dynamically in Spring Cloud Gateway</a></p>
-    <p><a href="Web-Services-with-VertX-in-Springboot.html">Web Services with VertX in Springboot</a></p>
-    <p><a href="What-is-Aspect-Oriented-Programming--AOP--in-Spring.html">What is Aspect Oriented Programming (AOP) in Spring</a></p>
+  <div class="sidebar">
+    <p><a href="Ways-to-log-database-queries-in-Spring-JDBC.html" target="previewFrame"><b>Ways to log database queries in Spring JDBC</b></a></p>
+    <p><a href="Different-ways-to-send-mails-from-springboot-application.html"  target="previewFrame"><b>Different ways to send mails from springboot application</b></a></p>
+    <p><a href="Access-Amazon-S3-bucket-from-Java-Springboot.html"  target="previewFrame"><b>Access Amazon S3 bucket from Java Springboot</b></a></p>
+    <p><a href="ActiveMQ-in-Spring-boot-using-JMSTemplate.html"  target="previewFrame"><b>ActiveMQ in Spring boot using JMSTemplate</b></a></p>
+    <p><a href="API-Code-generation-using-Swagger-in-Springboot.html"  target="previewFrame"><b>API Code generation using Swagger in Springboot</b></a></p>
+    <p><a href="API-gateway-in-Spring-boot.html"  target="previewFrame"><b>API gateway in Spring boot</b></a></p>
+    <p><a href="API-invocation-in-Groovy-Java-without-any-dependencies-jars.html"  target="previewFrame"><b>API invocation in Groovy/Java without any dependencies jars</b></a></p>
+    <p><a href="Convert--xsd-files-to-Java-classes.html"  target="previewFrame"><b>Convert .xsd files to Java classes</b></a></p>
+    <p><a href="Different-ways-to-send-mails-from-springboot-application.html"  target="previewFrame"><b>Different ways to send mails from springboot application</b></a></p>
+    <p><a href="Enable-authentication-and-configure-ActiveMQ-in-Java-application.html"  target="previewFrame"><b>Enable authentication and configure ActiveMQ in Java application</b></a></p>
+    <p><a href="ExecutorService-in-Java.html"  target="previewFrame"><b>ExecutorService in Java</b></a></p>
+    <p><a href="gRPC-implementation-in-Springboot-and-microservices.html"  target="previewFrame"><b>gRPC implementation in Springboot and microservices</b></a></p>
+    <p><a href="Implement-LRU--Least-Recently-Used--Cache-in-JAVA.html"  target="previewFrame"><b>Implement LRU (Least Recently Used) Cache in JAVA</b></a></p>
+    <p><a href="JWT-authentication-and-role-based-authorization-in-Springboot.html"  target="previewFrame"><b>JWT authentication and role-based authorization in Springboot</b></a></p>
+    <p><a href="Log-request-and-responses-of-REST-APIs-in-SpringBoot.html"  target="previewFrame"><b>Log request and responses of REST APIs in SpringBoot</b></a></p>
+    <p><a href="Make-command-line-arguments-easier-using-JCommander-in-Java.html"  target="previewFrame"><b>Make command-line arguments easier using JCommander in Java</b></a></p>
+    <p><a href="Pipeline-Design-pattern.html"  target="previewFrame"><b>Pipeline Design pattern</b></a></p>
+    <p><a href="Policies-of-ThreadPoolExecutor-in-Java.html"  target="previewFrame"><b>Policies of ThreadPoolExecutor in Java</b></a></p>
+    <p><a href="Singleton-Design-Pattern-in-Java.html"  target="previewFrame"><b>Singleton Design Pattern in Java</b></a></p>
+    <p><a href="Spring-Batch-Overview.html"  target="previewFrame"><b>Spring Batch Overview</b></a></p>
+    <p><a href="Spring-Retry-Overview.html"  target="previewFrame"><b>Spring Retry Overview</b></a></p>
+    <p><a href="Update-Hostname-dynamically-in-Spring-Cloud-Gateway.html"  target="previewFrame"><b>Update Hostname dynamically in Spring Cloud Gateway</b></a></p>
+    <p><a href="Web-Services-with-VertX-in-Springboot.html"  target="previewFrame"><b>Web Services with VertX in Springboot</b></a></p>
+    <p><a href="What-is-Aspect-Oriented-Programming--AOP--in-Spring.html"  target="previewFrame"><b>What is Aspect Oriented Programming (AOP) in Spring</b></a></p>
+    </div>
+    
+  <iframe name="previewFrame" src="" title="Preview Area"></iframe>
+
 </body>
 </html>
