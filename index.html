@@ -23,6 +23,11 @@
       box-sizing: border-box;
       border-right: 1px solid #ccc;
       overflow: auto;
+      display: none;
+    }
+
+    .sidebar.visible {
+      display: block;
     }
 
     .sidebar a {
@@ -60,9 +65,7 @@
     
 </head>
 <body>
-  <button id="toggleBtn" aria-expanded="false">Show articles</button>
-
-  <div class="sidebar" id="sidebar" aria-hidden="true">
+  <div class="sidebar" id="sidebar">
     <h2>Articles</h2>
     <p>Click any title to preview it on the right.</p>
     <div id="links" aria-live="polite"></div>
@@ -73,21 +76,13 @@
   </div>
 
   <script>
-  // Toggle sidebar visibility
-  const toggleBtn = document.getElementById('toggleBtn');
   const sidebar = document.getElementById('sidebar');
-  toggleBtn.addEventListener('click', () => {
-    const isVisible = sidebar.style.display === 'block';
-    if (isVisible) {
-      sidebar.style.display = 'none';
-      toggleBtn.textContent = 'Show articles';
-      toggleBtn.setAttribute('aria-expanded', 'false');
-      sidebar.setAttribute('aria-hidden', 'true');
-    } else {
-      sidebar.style.display = 'block';
-      toggleBtn.textContent = 'Hide articles';
-      toggleBtn.setAttribute('aria-expanded', 'true');
-      sidebar.setAttribute('aria-hidden', 'false');
+
+  // Listen for message from iframe (welcome.html)
+  window.addEventListener('message', (event) => {
+    if (event.data === 'showArticles') {
+      sidebar.classList.add('visible');
+      populateLinks();
     }
   });
 
@@ -102,6 +97,9 @@
   // Populate links from published/list.json (fallback to directory listing)
   async function populateLinks() {
     const container = document.getElementById('links');
+    if (container.innerHTML !== '' && container.innerHTML !== '<p>Loading…</p>') {
+      return; // already populated
+    }
     container.innerHTML = '<p>Loading…</p>';
     try {
       const res = await fetch('published/list.json');
@@ -114,13 +112,6 @@
         a.href = `published/${f}`;
         a.target = 'previewFrame';
         a.textContent = friendlyTitle(f);
-        a.addEventListener('click', () => {
-          // hide sidebar after selecting on small screens
-          sidebar.style.display = 'none';
-          toggleBtn.textContent = 'Show articles';
-          toggleBtn.setAttribute('aria-expanded', 'false');
-          sidebar.setAttribute('aria-hidden', 'true');
-        });
         p.appendChild(a);
         container.appendChild(p);
       });
@@ -139,12 +130,6 @@
           a.href = `published/${f}`;
           a.target = 'previewFrame';
           a.textContent = friendlyTitle(f);
-          a.addEventListener('click', () => {
-            sidebar.style.display = 'none';
-            toggleBtn.textContent = 'Show articles';
-            toggleBtn.setAttribute('aria-expanded', 'false');
-            sidebar.setAttribute('aria-hidden', 'true');
-          });
           p.appendChild(a);
           container.appendChild(p);
         });
@@ -154,8 +139,6 @@
       }
     }
   }
-
-  document.addEventListener('DOMContentLoaded', populateLinks);
   </script>
 </body>
 </html>

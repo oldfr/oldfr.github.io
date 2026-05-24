@@ -13,13 +13,24 @@
 </head>
 <body>
   <div class="card">
-    <h1>Hello, Welcome</h1> <br>
+    <h1>Hello, Welcome </h1> <br>
 
-    <h2> You will find my published articles here.</h2>
-    <p> Click on "show articles" to view the details.</p>
+    <h2> You will find my published articles here</h2>
+    <p> Click on "Explore articles" to view the list of articles.</p>
 
-    <p><a class="button" href="index.html" target="_top">Open site index</a></p>
+    <p><a class="button" id="openIndexBtn">Explore articles</a></p>
+
+    <a href="https://www.linkedin.com/in/ankitha-h-j" target="_blank">Connect with me on LinkedIn</a> <br/>
+    <a href="https://medium.com/@ankithahjpgowda" target="_blank">Follow me on Medium</a> <br>
+    <a href="https://github.com/oldfr" target="_blank">Follow me on GitHub</a><br>
+
   </div>
+
+  <script>
+    document.getElementById('openIndexBtn').addEventListener('click', () => {
+      window.parent.postMessage('showArticles', '*');
+    });
+  </script>
 </body>
 </html>
 
