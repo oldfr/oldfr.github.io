@@ -1,144 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Ankitha Gowda</title>
+
     <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      height: 100vh; /* full viewport height */
-      overflow: hidden;
-    }
 
-    /* Left panel for links */
-    .sidebar {
-      width: 25%;
-      min-width: 200px;
-      background-color: aquamarine;
-      padding: 20px;
-      box-sizing: border-box;
-      border-right: 1px solid #ccc;
-      overflow: auto;
-      display: none;
-    }
+        *{
+          margin:0;
+          padding:0;
+          box-sizing:border-box;
+        }
 
-    .sidebar.visible {
-      display: block;
-    }
+        body{
+          font-family: Arial, sans-serif;
+          display:flex;
+          height:100vh;
+          overflow:hidden;
+          background:#0f172a;
+        }
 
-    .sidebar a {
-      display: block;
-      margin-bottom: 10px;
-      text-decoration: none;
-      color: #333;
-      padding: 8px;
-      border-radius: 6px;
-    }
+        /* Sidebar */
 
-    .sidebar a:hover {
-      background-color: #ddd;
-    }
+        .sidebar{
+          width:28%;
+          min-width:260px;
+          background:linear-gradient(180deg, #111827, #1f2937);
+          color:white;
+          padding:24px;
+          border-right:1px solid rgba(255,255,255,0.08);
+          overflow:auto;
+          display:none;
+          box-shadow:4px 0 20px rgba(0,0,0,0.3);
+        }
 
-    /* Right panel for preview */
-    .preview {
-      background-color: #ddd;
-      flex-grow: 1;
-      border: none;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
+        .sidebar.visible{
+          display:block;
+          animation:slideIn 0.4s ease;
+        }
 
-    iframe {
-      flex-grow: 1;
-      border: none;
-      width: 100%;
-      height: 100%;
-    }
+        @keyframes slideIn{
+          from{
+            opacity:0;
+            transform:translateX(-30px);
+          }
+
+          to{
+            opacity:1;
+            transform:translateX(0);
+          }
+        }
+
+        .sidebar h2{
+          font-size:28px;
+          margin-bottom:12px;
+        }
+
+        .sidebar p{
+          color:#9ca3af;
+          margin-bottom:24px;
+          line-height:1.6;
+        }
+
+        .sidebar a{
+          display:block;
+          margin-bottom:12px;
+          text-decoration:none;
+          color:#e5e7eb;
+          padding:14px 16px;
+          border-radius:12px;
+          background:rgba(255,255,255,0.04);
+          transition:all 0.25s ease;
+          font-weight:500;
+        }
+
+        .sidebar a:hover{
+          background:#2563eb;
+          transform:translateX(6px);
+        }
+
+        /* Preview Area */
+
+        .preview{
+          flex-grow:1;
+          background:#0f172a;
+          display:flex;
+          flex-direction:column;
+        }
+
+        iframe{
+          flex-grow:1;
+          width:100%;
+          height:100%;
+          border:none;
+          background:white;
+        }
+
+        /* Scrollbar */
+
+        ::-webkit-scrollbar{
+          width:8px;
+        }
+
+        ::-webkit-scrollbar-thumb{
+          background:#374151;
+          border-radius:10px;
+        }
 
     </style>
-    
 </head>
+
 <body>
-  <div class="sidebar" id="sidebar">
-    <h2>Articles</h2>
-    <p>Click any title to preview it on the right.</p>
+
+<!-- Sidebar -->
+
+<div class="sidebar" id="sidebar">
+
+    <h2>📝 Articles</h2>
+
+    <p>
+        Explore my technical write-ups, engineering experiments,
+        cloud learnings, and GenAI projects.
+    </p>
+
     <div id="links" aria-live="polite"></div>
-  </div>
 
-  <div class="preview">
-    <iframe name="previewFrame" src="welcome.html" title="Preview Area"></iframe>
-  </div>
+</div>
 
-  <script>
-  const sidebar = document.getElementById('sidebar');
+<!-- Main Preview -->
 
-  // Listen for message from iframe (welcome.html)
-  window.addEventListener('message', (event) => {
-    if (event.data === 'showArticles') {
-      sidebar.classList.add('visible');
-      populateLinks();
-    }
-  });
+<div class="preview">
 
-  // Build a friendly title from filename
-  function friendlyTitle(name) {
-    // remove extension
-    const n = name.replace(/\.html?$/i, '');
-    // replace common separators with spaces
-    return n.replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+    <iframe
+            name="previewFrame"
+            src="welcome.html"
+            title="Preview Area">
+    </iframe>
+
+</div>
+
+<script>
+
+    const sidebar = document.getElementById('sidebar');
+
+    // Listen for message from iframe
+
+window.addEventListener('message', async (event) => {
+
+  if (!event.data || event.data.type !== 'showArticles') {
+    return;
   }
 
-  // Populate links from published/list.json (fallback to directory listing)
-  async function populateLinks() {
-    const container = document.getElementById('links');
-    if (container.innerHTML !== '' && container.innerHTML !== '<p>Loading…</p>') {
-      return; // already populated
+  sidebar.classList.add('visible');
+
+  await populateLinks();
+
+});
+
+    // Convert filename to readable title
+
+    function friendlyTitle(name) {
+
+      return name
+        .replace(/\.html?$/i, '')
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
     }
-    container.innerHTML = '<p>Loading…</p>';
-    try {
-      const res = await fetch('published/list.json');
-      if (!res.ok) throw new Error('No manifest');
-      const files = await res.json();
-      container.innerHTML = '';
-      files.forEach(f => {
-        const p = document.createElement('p');
-        const a = document.createElement('a');
-        a.href = `published/${f}`;
-        a.target = 'previewFrame';
-        a.textContent = friendlyTitle(f);
-        p.appendChild(a);
-        container.appendChild(p);
-      });
-    } catch (err) {
-      // fallback: attempt to fetch directory listing and parse links
-      try {
-        const res = await fetch('published/');
-        const txt = await res.text();
-        const doc = new DOMParser().parseFromString(txt, 'text/html');
-        const anchors = Array.from(doc.querySelectorAll('a'));
-        const files = anchors.map(a => a.getAttribute('href')).filter(h => /\.html?$/.test(h));
-        container.innerHTML = '';
-        files.forEach(f => {
-          const p = document.createElement('p');
-          const a = document.createElement('a');
-          a.href = `published/${f}`;
-          a.target = 'previewFrame';
-          a.textContent = friendlyTitle(f);
-          p.appendChild(a);
-          container.appendChild(p);
-        });
-      } catch (e) {
-        container.innerHTML = '<p>Unable to load articles.</p>';
-        console.error(e);
+
+    // Populate links dynamically
+
+    async function populateLinks() {
+
+      const container = document.getElementById('links');
+
+      // Avoid duplicate loading
+
+      if (
+        container.innerHTML !== '' &&
+        container.innerHTML !== '<p>Loading…</p>'
+      ) {
+        return;
       }
+
+      container.innerHTML = '<p>Loading articles...</p>';
+
+      try {
+
+        // Preferred approach using manifest
+
+        const res = await fetch('published/list.json');
+
+        if (!res.ok) {
+          throw new Error('Manifest not found');
+        }
+
+        const files = await res.json();
+
+        container.innerHTML = '';
+
+        files.forEach(file => {
+
+          const a = document.createElement('a');
+
+          a.href = `published/${file}`;
+          a.target = 'previewFrame';
+          a.textContent = `📄 ${friendlyTitle(file)}`;
+
+          container.appendChild(a);
+
+        });
+
+      } catch (err) {
+
+        // Fallback approach
+
+        try {
+
+          const res = await fetch('published/');
+
+          const txt = await res.text();
+
+          const doc = new DOMParser().parseFromString(txt, 'text/html');
+
+          const anchors = Array.from(doc.querySelectorAll('a'));
+
+          const files = anchors
+            .map(a => a.getAttribute('href'))
+            .filter(h => /\.html?$/.test(h));
+
+          container.innerHTML = '';
+
+          files.forEach(file => {
+
+            const a = document.createElement('a');
+
+            a.href = `published/${file}`;
+            a.target = 'previewFrame';
+            a.textContent = `📄 ${friendlyTitle(file)}`;
+
+            container.appendChild(a);
+
+          });
+
+        } catch (e) {
+
+          container.innerHTML =
+            '<p>Unable to load articles.</p>';
+
+          console.error(e);
+
+        }
+
+      }
+
     }
-  }
-  </script>
+
+</script>
+
 </body>
 </html>

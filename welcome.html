@@ -1,36 +1,248 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Welcome - Ankitha Gowda</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ankitha | GitHub Profile</title>
+
   <style>
-    body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
-    h1 { color: #0b6; }
-    .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-    a.button { display: inline-block; margin-top: 12px; padding: 8px 12px; background: #0b6; color: #fff; text-decoration: none; border-radius: 6px; }
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
+
+    body{
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        color:white;
+        overflow-x:hidden;
+    }
+
+    .hero{
+        height:100vh;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+        padding:20px;
+    }
+
+    .hero h1{
+        font-size:70px;
+        background: linear-gradient(to right, #38bdf8, #818cf8, #ec4899);
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+        animation: glow 3s infinite alternate;
+    }
+
+    @keyframes glow{
+        from{
+            text-shadow:0 0 10px #38bdf8;
+        }
+        to{
+            text-shadow:0 0 25px #ec4899;
+        }
+    }
+
+    .typing{
+        margin-top:20px;
+        font-size:28px;
+        color:#cbd5e1;
+        border-right:3px solid white;
+        white-space:nowrap;
+        overflow:hidden;
+        width:0;
+        animation:
+            typing 4s steps(40, end) forwards,
+            blink 0.8s infinite;
+    }
+
+    @keyframes typing{
+        from{ width:0 }
+        to{ width:100% }
+    }
+
+    @keyframes blink{
+        50%{
+            border-color:transparent;
+        }
+    }
+
+    .description{
+        margin-top:30px;
+        max-width:800px;
+        font-size:20px;
+        line-height:1.8;
+        color:#94a3b8;
+    }
+
+    .buttons{
+        margin-top:40px;
+        display:flex;
+        gap:20px;
+        flex-wrap:wrap;
+    }
+
+    .btn{
+        padding:14px 28px;
+        border-radius:50px;
+        text-decoration:none;
+        font-weight:bold;
+        transition:0.3s;
+    }
+
+    .primary{
+        background:#38bdf8;
+        color:#0f172a;
+    }
+
+    .primary:hover{
+        transform:translateY(-5px);
+        box-shadow:0 0 20px #38bdf8;
+    }
+
+    .secondary{
+        border:2px solid #818cf8;
+        color:white;
+    }
+
+    .secondary:hover{
+        background:#818cf8;
+        transform:translateY(-5px);
+    }
+
+    .skills{
+        padding:80px 20px;
+        text-align:center;
+    }
+
+    .skills h2{
+        font-size:40px;
+        margin-bottom:40px;
+    }
+
+    .skill-container{
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:20px;
+    }
+
+    .skill{
+        background:#1e293b;
+        padding:18px 28px;
+        border-radius:14px;
+        font-size:18px;
+        transition:0.3s;
+        border:1px solid #334155;
+    }
+
+    .skill:hover{
+        transform:scale(1.08);
+        background:#334155;
+    }
+
+    footer{
+        text-align:center;
+        padding:30px;
+        color:#94a3b8;
+    }
   </style>
 </head>
+
 <body>
-  <div class="card">
-    <h1>Hello, Welcome </h1> <br>
 
-    <h2> You will find my published articles here</h2>
-    <p> Click on "Explore articles" to view the list of articles.</p>
+<section class="hero">
 
-    <p><a class="button" id="openIndexBtn">Explore articles</a></p>
+  <h1>Hi 👋 I'm Ankitha</h1>
 
-    <a href="https://www.linkedin.com/in/ankitha-h-j" target="_blank">Connect with me on LinkedIn</a> <br/>
-    <a href="https://medium.com/@ankithahjpgowda" target="_blank">Follow me on Medium</a> <br>
-    <a href="https://github.com/oldfr" target="_blank">Follow me on GitHub</a><br>
+  <div class="typing">
+    Backend Engineer • GenAI Enthusiast • Cloud Enthusiast
+  </div>
+
+  <p class="description">
+
+    I design scalable backend platforms, cloud-native systems,
+    and AI-driven engineering solutions.
+
+    Currently exploring intelligent observability,
+    configuration optimization agents,
+    distributed tracing insights,
+    and GenAI-powered developer productivity.
+
+    Passionate about Java, Kubernetes, Dynatrace,
+    Dataproc, Microservices, and Platform Engineering.
+  </p>
+
+  <div class="buttons">
+
+    <a href="https://github.com/oldfr" class="btn primary" target="_blank">
+      🚀 View GitHub
+    </a>
+
+    <a href="https://www.linkedin.com/in/ankitha-h-j" class="btn secondary" target="_blank">
+      💼 Connect on LinkedIn
+    </a>
+
+    <a href="https://medium.com/@ankithahjpgowda" class="btn secondary" target="_blank">
+      💼 Follow on Medium
+    </a>
+
+    <a href="#" class="btn secondary" id="openIndexBtn">
+      📝 Explore My Articles
+    </a>
 
   </div>
 
   <script>
-    document.getElementById('openIndexBtn').addEventListener('click', () => {
-      window.parent.postMessage('showArticles', '*');
-    });
+
+    document
+      .getElementById('openIndexBtn')
+      .addEventListener('click', (event) => {
+
+        event.preventDefault();
+
+        window.parent.postMessage(
+          {
+            type: 'showArticles'
+          },
+          '*'
+        );
+
+      });
+
   </script>
+
+</section>
+
+<section class="skills">
+
+  <h2>⚡ Tech Stack</h2>
+
+  <div class="skill-container">
+    <div class="skill">Java</div>
+    <div class="skill">Spring Boot</div>
+    <div class="skill">Microservices</div>
+    <div class="skill">GCP</div>
+    <div class="skill">Dataproc</div>
+    <div class="skill">Kubernetes</div>
+    <div class="skill">Docker</div>
+    <div class="skill">GenAI</div>
+  </div>
+
+</section>
+
+<footer>
+  ✨ Designed with passion by Ankitha
+</footer>
+
+<script>
+  document.getElementById('openIndexBtn').addEventListener('click', () => {
+    window.parent.postMessage('showArticles', '*');
+  });
+</script>
+
 </body>
 </html>
-
