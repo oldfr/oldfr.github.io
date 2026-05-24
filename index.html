@@ -10,16 +10,19 @@
       margin: 0;
       font-family: Arial, sans-serif;
       display: flex;
-      height: 200vh; /* full viewport height */
+      height: 100vh; /* full viewport height */
+      overflow: hidden;
     }
 
     /* Left panel for links */
     .sidebar {
-      width: 80%;
-      background-color:aquamarine;
-      padding : 20px;
+      width: 25%;
+      min-width: 200px;
+      background-color: aquamarine;
+      padding: 20px;
       box-sizing: border-box;
       border-right: 1px solid #ccc;
+      overflow: auto;
     }
 
     .sidebar a {
@@ -41,9 +44,12 @@
       flex-grow: 1;
       border: none;
       width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
     }
 
-        iframe {
+    iframe {
       flex-grow: 1;
       border: none;
       width: 100%;
@@ -54,34 +60,102 @@
     
 </head>
 <body>
-  <div class="sidebar">
-    <p><a href="Ways-to-log-database-queries-in-Spring-JDBC.html" target="previewFrame"><b>Ways to log database queries in Spring JDBC</b></a></p>
-    <p><a href="Different-ways-to-send-mails-from-springboot-application.html"  target="previewFrame"><b>Different ways to send mails from springboot application</b></a></p>
-    <p><a href="Access-Amazon-S3-bucket-from-Java-Springboot.html"  target="previewFrame"><b>Access Amazon S3 bucket from Java Springboot</b></a></p>
-    <p><a href="ActiveMQ-in-Spring-boot-using-JMSTemplate.html"  target="previewFrame"><b>ActiveMQ in Spring boot using JMSTemplate</b></a></p>
-    <p><a href="API-Code-generation-using-Swagger-in-Springboot.html"  target="previewFrame"><b>API Code generation using Swagger in Springboot</b></a></p>
-    <p><a href="API-gateway-in-Spring-boot.html"  target="previewFrame"><b>API gateway in Spring boot</b></a></p>
-    <p><a href="API-invocation-in-Groovy-Java-without-any-dependencies-jars.html"  target="previewFrame"><b>API invocation in Groovy/Java without any dependencies jars</b></a></p>
-    <p><a href="Convert--xsd-files-to-Java-classes.html"  target="previewFrame"><b>Convert .xsd files to Java classes</b></a></p>
-    <p><a href="Different-ways-to-send-mails-from-springboot-application.html"  target="previewFrame"><b>Different ways to send mails from springboot application</b></a></p>
-    <p><a href="Enable-authentication-and-configure-ActiveMQ-in-Java-application.html"  target="previewFrame"><b>Enable authentication and configure ActiveMQ in Java application</b></a></p>
-    <p><a href="ExecutorService-in-Java.html"  target="previewFrame"><b>ExecutorService in Java</b></a></p>
-    <p><a href="gRPC-implementation-in-Springboot-and-microservices.html"  target="previewFrame"><b>gRPC implementation in Springboot and microservices</b></a></p>
-    <p><a href="Implement-LRU--Least-Recently-Used--Cache-in-JAVA.html"  target="previewFrame"><b>Implement LRU (Least Recently Used) Cache in JAVA</b></a></p>
-    <p><a href="JWT-authentication-and-role-based-authorization-in-Springboot.html"  target="previewFrame"><b>JWT authentication and role-based authorization in Springboot</b></a></p>
-    <p><a href="Log-request-and-responses-of-REST-APIs-in-SpringBoot.html"  target="previewFrame"><b>Log request and responses of REST APIs in SpringBoot</b></a></p>
-    <p><a href="Make-command-line-arguments-easier-using-JCommander-in-Java.html"  target="previewFrame"><b>Make command-line arguments easier using JCommander in Java</b></a></p>
-    <p><a href="Pipeline-Design-pattern.html"  target="previewFrame"><b>Pipeline Design pattern</b></a></p>
-    <p><a href="Policies-of-ThreadPoolExecutor-in-Java.html"  target="previewFrame"><b>Policies of ThreadPoolExecutor in Java</b></a></p>
-    <p><a href="Singleton-Design-Pattern-in-Java.html"  target="previewFrame"><b>Singleton Design Pattern in Java</b></a></p>
-    <p><a href="Spring-Batch-Overview.html"  target="previewFrame"><b>Spring Batch Overview</b></a></p>
-    <p><a href="Spring-Retry-Overview.html"  target="previewFrame"><b>Spring Retry Overview</b></a></p>
-    <p><a href="Update-Hostname-dynamically-in-Spring-Cloud-Gateway.html"  target="previewFrame"><b>Update Hostname dynamically in Spring Cloud Gateway</b></a></p>
-    <p><a href="Web-Services-with-VertX-in-Springboot.html"  target="previewFrame"><b>Web Services with VertX in Springboot</b></a></p>
-    <p><a href="What-is-Aspect-Oriented-Programming--AOP--in-Spring.html"  target="previewFrame"><b>What is Aspect Oriented Programming (AOP) in Spring</b></a></p>
-    </div>
-    
-  <iframe name="previewFrame" src="" title="Preview Area"></iframe>
+  <button id="toggleBtn" aria-expanded="false">Show articles</button>
 
+  <div class="sidebar" id="sidebar" aria-hidden="true">
+    <h2>Articles</h2>
+    <p>Click any title to preview it on the right.</p>
+    <div id="links" aria-live="polite"></div>
+  </div>
+
+  <div class="preview">
+    <iframe name="previewFrame" src="welcome.html" title="Preview Area"></iframe>
+  </div>
+
+  <script>
+  // Toggle sidebar visibility
+  const toggleBtn = document.getElementById('toggleBtn');
+  const sidebar = document.getElementById('sidebar');
+  toggleBtn.addEventListener('click', () => {
+    const isVisible = sidebar.style.display === 'block';
+    if (isVisible) {
+      sidebar.style.display = 'none';
+      toggleBtn.textContent = 'Show articles';
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      sidebar.setAttribute('aria-hidden', 'true');
+    } else {
+      sidebar.style.display = 'block';
+      toggleBtn.textContent = 'Hide articles';
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      sidebar.setAttribute('aria-hidden', 'false');
+    }
+  });
+
+  // Build a friendly title from filename
+  function friendlyTitle(name) {
+    // remove extension
+    const n = name.replace(/\.html?$/i, '');
+    // replace common separators with spaces
+    return n.replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  // Populate links from published/list.json (fallback to directory listing)
+  async function populateLinks() {
+    const container = document.getElementById('links');
+    container.innerHTML = '<p>Loading…</p>';
+    try {
+      const res = await fetch('published/list.json');
+      if (!res.ok) throw new Error('No manifest');
+      const files = await res.json();
+      container.innerHTML = '';
+      files.forEach(f => {
+        const p = document.createElement('p');
+        const a = document.createElement('a');
+        a.href = `published/${f}`;
+        a.target = 'previewFrame';
+        a.textContent = friendlyTitle(f);
+        a.addEventListener('click', () => {
+          // hide sidebar after selecting on small screens
+          sidebar.style.display = 'none';
+          toggleBtn.textContent = 'Show articles';
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          sidebar.setAttribute('aria-hidden', 'true');
+        });
+        p.appendChild(a);
+        container.appendChild(p);
+      });
+    } catch (err) {
+      // fallback: attempt to fetch directory listing and parse links
+      try {
+        const res = await fetch('published/');
+        const txt = await res.text();
+        const doc = new DOMParser().parseFromString(txt, 'text/html');
+        const anchors = Array.from(doc.querySelectorAll('a'));
+        const files = anchors.map(a => a.getAttribute('href')).filter(h => /\.html?$/.test(h));
+        container.innerHTML = '';
+        files.forEach(f => {
+          const p = document.createElement('p');
+          const a = document.createElement('a');
+          a.href = `published/${f}`;
+          a.target = 'previewFrame';
+          a.textContent = friendlyTitle(f);
+          a.addEventListener('click', () => {
+            sidebar.style.display = 'none';
+            toggleBtn.textContent = 'Show articles';
+            toggleBtn.setAttribute('aria-expanded', 'false');
+            sidebar.setAttribute('aria-hidden', 'true');
+          });
+          p.appendChild(a);
+          container.appendChild(p);
+        });
+      } catch (e) {
+        container.innerHTML = '<p>Unable to load articles.</p>';
+        console.error(e);
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', populateLinks);
+  </script>
 </body>
 </html>
