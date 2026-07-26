@@ -985,8 +985,142 @@ ACHIEVEMENTS
 
 }
 
+
 .achievement-card p{
 
     color:#cbd5e1;
+
+}
+
+/* ===========================
+CONTACT
+=========================== */
+
+.contact-container{
+
+    display:flex;
+
+    gap:50px;
+
+    margin-top:50px;
+
+}
+
+.contact-info{
+
+    flex:2;
+
+}
+
+.contact-card{
+
+    flex:1;
+
+    background:#1e293b;
+
+    padding:35px;
+
+    border-radius:15px;
+
+}
+
+.contact-info h3,
+.contact-card h3{
+
+    color:#38bdf8;
+
+    margin-bottom:20px;
+
+}
+
+.contact-info p{
+
+    margin-bottom:25px;
+
+    color:#cbd5e1;
+
+}
+
+.contact-item{
+
+    margin-bottom:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.contact-item i{
+
+    color:#38bdf8;
+
+    width:25px;
+
+    font-size:20px;
+
+}
+
+.contact-item a{
+
+    color:white;
+
+}
+
+.contact-item span{
+
+    color:white;
+
+}
+
+.social-links{
+
+    margin-top:30px;
+
+}
+
+.social-links a{
+
+    display:inline-block;
+
+    margin-right:20px;
+
+    font-size:30px;
+
+    color:#38bdf8;
+
+    transition:.3s;
+
+}
+
+.social-links a:hover{
+
+    transform:scale(1.2);
+
+}
+
+.contact-card ul{
+
+    list-style:none;
+
+}
+
+.contact-card li{
+
+    margin-bottom:18px;
+
+    color:#cbd5e1;
+
+}
+
+@media(max-width:900px){
+
+.contact-container{
+
+    flex-direction:column;
+
+}
 
 }
