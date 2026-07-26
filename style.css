@@ -927,3 +927,66 @@ SKILLS
     color:#0f172a;
 
 }
+/* ===========================
+ACHIEVEMENTS
+=========================== */
+
+.achievement-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+
+    gap:30px;
+
+    margin-top:60px;
+
+}
+
+.achievement-card{
+
+    background:#1e293b;
+
+    border-radius:15px;
+
+    padding:35px;
+
+    text-align:center;
+
+    transition:.35s;
+
+}
+
+.achievement-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+}
+
+.achievement-card i{
+
+    font-size:45px;
+
+    color:#38bdf8;
+
+    margin-bottom:20px;
+
+}
+
+.achievement-card h3{
+
+    color:#38bdf8;
+
+    margin-bottom:15px;
+
+    font-size:24px;
+
+}
+
+.achievement-card p{
+
+    color:#cbd5e1;
+
+}
