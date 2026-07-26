@@ -838,3 +838,92 @@ PROJECTS
     font-size:13px;
 
 }
+
+
+/* ===========================
+SKILLS
+=========================== */
+
+.skills-container{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+
+    gap:30px;
+
+    margin-top:50px;
+
+}
+
+.skill-category{
+
+    background:#1e293b;
+
+    padding:30px;
+
+    border-radius:15px;
+
+    transition:.3s;
+
+}
+
+.skill-category:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+.skill-category h3{
+
+    color:#38bdf8;
+
+    margin-bottom:25px;
+
+    font-size:22px;
+
+}
+
+.skill-category h3 i{
+
+    margin-right:10px;
+
+}
+
+.skill-list{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+}
+
+.skill-list span{
+
+    background:#0f172a;
+
+    border:1px solid #38bdf8;
+
+    color:#38bdf8;
+
+    padding:8px 14px;
+
+    border-radius:25px;
+
+    font-size:14px;
+
+    transition:.3s;
+
+}
+
+.skill-list span:hover{
+
+    background:#38bdf8;
+
+    color:#0f172a;
+
+}
