@@ -756,3 +756,85 @@ EXPERIENCE
 }
 
 }
+
+/* ===========================
+PROJECTS
+=========================== */
+
+.projects-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+
+    gap:30px;
+
+    margin-top:60px;
+
+}
+
+.project-card{
+
+    background:#1e293b;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    transition:.35s;
+
+    border-top:4px solid #38bdf8;
+
+}
+
+.project-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+
+}
+
+.project-card h3{
+
+    color:#38bdf8;
+
+    margin-bottom:18px;
+
+    font-size:24px;
+
+}
+
+.project-card p{
+
+    color:#cbd5e1;
+
+    margin-bottom:25px;
+
+}
+
+.project-tech{
+
+    margin-top:20px;
+
+}
+
+.project-tech span{
+
+    display:inline-block;
+
+    background:#0f172a;
+
+    color:#38bdf8;
+
+    border:1px solid #38bdf8;
+
+    padding:6px 12px;
+
+    margin:5px;
+
+    border-radius:20px;
+
+    font-size:13px;
+
+}
