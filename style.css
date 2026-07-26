@@ -1,0 +1,410 @@
+/* ===========================
+   GLOBAL
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:#0f172a;
+    color:#f8fafc;
+    line-height:1.7;
+
+}
+
+a{
+    text-decoration:none;
+}
+
+section{
+
+    padding:90px 10%;
+
+}
+
+img{
+
+    width:100%;
+    display:block;
+
+}
+
+/* ===========================
+   NAVBAR
+=========================== */
+
+header{
+
+    position:fixed;
+    width:100%;
+    top:0;
+    left:0;
+    z-index:1000;
+
+    background:#111827;
+
+    box-shadow:0 2px 12px rgba(0,0,0,.35);
+
+}
+
+nav{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:18px 10%;
+
+}
+
+.logo{
+
+    font-size:26px;
+    font-weight:700;
+
+    color:#38bdf8;
+
+}
+
+nav ul{
+
+    display:flex;
+    list-style:none;
+
+}
+
+nav ul li{
+
+    margin-left:30px;
+
+}
+
+nav ul li a{
+
+    color:white;
+    font-weight:500;
+    transition:.3s;
+
+}
+
+nav ul li a:hover{
+
+    color:#38bdf8;
+
+}
+
+/* ===========================
+   HERO
+=========================== */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:80px;
+
+}
+
+.hero-text{
+
+    flex:1;
+
+}
+
+.hero-text h1{
+
+    font-size:58px;
+    margin-bottom:10px;
+
+}
+
+.hero-text h1 span{
+
+    color:#38bdf8;
+
+}
+
+.hero-text h2{
+
+    font-size:30px;
+    color:#94a3b8;
+
+    margin-bottom:25px;
+
+}
+
+.hero-text p{
+
+    font-size:18px;
+    color:#cbd5e1;
+
+    max-width:700px;
+
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.hero-buttons{
+
+    margin-top:35px;
+
+}
+
+.btn{
+
+    display:inline-block;
+
+    padding:14px 34px;
+
+    background:#38bdf8;
+
+    color:#0f172a;
+
+    font-weight:600;
+
+    border-radius:8px;
+
+    margin-right:20px;
+
+    transition:.3s;
+
+}
+
+.btn:hover{
+
+    background:white;
+
+}
+
+.btn-outline{
+
+    display:inline-block;
+
+    padding:14px 34px;
+
+    border:2px solid #38bdf8;
+
+    color:#38bdf8;
+
+    border-radius:8px;
+
+    transition:.3s;
+
+}
+
+.btn-outline:hover{
+
+    background:#38bdf8;
+
+    color:#0f172a;
+
+}
+
+/* ===========================
+   SOCIAL ICONS
+=========================== */
+
+.social-icons{
+
+    margin-top:35px;
+
+}
+
+.social-icons a{
+
+    color:white;
+
+    font-size:30px;
+
+    margin-right:20px;
+
+    transition:.3s;
+
+}
+
+.social-icons a:hover{
+
+    color:#38bdf8;
+
+}
+
+/* ===========================
+   PROFILE IMAGE
+=========================== */
+
+.hero-image{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+.hero-image img{
+
+    width:370px;
+
+    border-radius:50%;
+
+    border:6px solid #38bdf8;
+
+    box-shadow:0 0 35px rgba(56,189,248,.45);
+
+}
+
+/* ===========================
+   COMMON SECTION
+=========================== */
+
+section h2{
+
+    font-size:40px;
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+    color:#38bdf8;
+
+}
+
+/* ===========================
+   CARDS
+=========================== */
+
+.card{
+
+    background:#1e293b;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    margin-bottom:25px;
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 8px 30px rgba(0,0,0,.4);
+
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+
+footer{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:#94a3b8;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:900px){
+
+nav{
+
+    flex-direction:column;
+
+}
+
+nav ul{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    margin-top:15px;
+
+}
+
+nav ul li{
+
+    margin:10px;
+
+}
+
+.hero{
+
+    flex-direction:column-reverse;
+
+    text-align:center;
+
+    padding-top:140px;
+
+}
+
+.hero-image img{
+
+    width:260px;
+
+}
+
+.hero-text h1{
+
+    font-size:42px;
+
+}
+
+.hero-text h2{
+
+    font-size:24px;
+
+}
+
+.hero-text p{
+
+    margin:auto;
+
+}
+
+.hero-buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.btn,
+
+.btn-outline{
+
+    margin:0;
+
+}
+
+}
